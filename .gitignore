@@ -3,5 +3,5 @@
 .venv/
 .vscode/
 
-datasets/*
-!datasets/library/
+dataset/*
+!dataset/library/

@@ -1,6 +1,0 @@
-hs_code,tier_id,category_name,strategic_bottleneck
-848620,Tier_1_Equipment,Semiconductor manufacturing machinery & photolithography (ASML/EUV),High-capital bottleneck; fabrication tooling.
-381800,Tier_2_Wafers,Chemical compounds doped for electronics; silicon wafers,Raw material baseline; high-purity ingots and discs.
-854231,Tier_3A_Logic_Processors,"Processors and controllers, whether or not combined with memories (CPUs/GPUs)",Core computational engines driving AI and computing.
-854232,Tier_3B_Memory,"Electronic integrated circuits as memories (DRAM, NAND, HBM)",High-bandwidth memory chips critical for AI hardware.
-854239,Tier_3C_Other_ICs,"Other electronic integrated circuits (Analog, PMICs, Mixed-signal)","Peripheral support circuits, automotive chips."
