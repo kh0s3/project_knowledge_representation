@@ -1,0 +1,9 @@
+column,dtype,n_unique,n_missing,pct_missing
+year,int64,1,0,0.0
+tier,object,5,0,0.0
+hs_description,object,5,0,0.0
+exporter_iso,object,20,0,0.0
+exporter_name,object,20,0,0.0
+importer_iso,object,234,0,0.0
+importer_name,object,234,0,0.0
+trade_value_usd,float64,38886,0,0.0
