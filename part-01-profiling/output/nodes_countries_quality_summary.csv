@@ -1,0 +1,7 @@
+column,dtype,n_unique,n_missing,pct_missing
+country_iso,object,240,0,0.0
+country_name,object,240,0,0.0
+total_export_usd,float64,240,0,0.0
+total_import_usd,float64,239,0,0.0
+net_trade_balance_usd,float64,240,0,0.0
+strategic_role,object,3,0,0.0
