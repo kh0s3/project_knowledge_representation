@@ -25,6 +25,7 @@ OUT_DIR.mkdir(exist_ok=True)
 
 DATASETS = {
     "semiconductor_trade": PROJECT / "dataset" / "edges_semiconductor_trade.csv",
+    "nodes_countries": PROJECT / "dataset" / "nodes_countries.csv",
 }
 
 # CSV encoding. Change only if your CSV requires another encoding.

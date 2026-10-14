@@ -1,0 +1,228 @@
+country_iso,country_name,total_export_usd,total_import_usd,net_trade_balance_usd,strategic_role
+CHN,China,515248353234.0,257370443998.85,257877909235.15,Net Importer / High Dependency
+TWN,Taiwan (Other Asia nes),0.0,448814178498.29,-448814178498.29,Net Exporter / Supply Powerhouse
+KOR,Rep. of Korea,198223772916.0,192876953457.37,5346819458.630005,Net Exporter / Supply Powerhouse
+MYS,Malaysia,223482487583.47,126424748443.06,97057739140.41,Net Exporter / Supply Powerhouse
+DEU,Germany,142283429040.68,30687859823.15,111595569217.53,Balanced Intermediary / Assembly Hub
+SGP,Singapore,228793976689.33,93686690730.38,135107285958.94998,Balanced Intermediary / Assembly Hub
+USA,USA,109174950410.0,101186045167.84,7988905242.160004,Balanced Intermediary / Assembly Hub
+JPN,Japan,80175429296.6,86971594196.62,-6796164900.019989,Net Exporter / Supply Powerhouse
+THA,Thailand,107536285402.63,38909089771.93,68627195630.700005,Balanced Intermediary / Assembly Hub
+PHL,Philippines,34181237661.0,35578922619.020004,-1397684958.0200043,Net Exporter / Supply Powerhouse
+NLD,Netherlands,30215577074.69,32465096644.37,-2249519569.6800003,Net Exporter / Supply Powerhouse
+VNM,Viet Nam,0.0,84060199571.26,-84060199571.26,Net Importer / High Dependency
+FRA,France,39510170560.1,9139547474.82,30370623085.28,Balanced Intermediary / Assembly Hub
+IRL,Ireland,14856949888.6,25312461241.48,-10455511352.88,Net Exporter / Supply Powerhouse
+ISR,Israel,7570374000.0,16654536824.119999,-9084162824.119999,Net Exporter / Supply Powerhouse
+GBR,United Kingdom,11392731627.23,6732717549.16,4660014078.07,Balanced Intermediary / Assembly Hub
+MEX,Mexico,57436128332.0,22134245049.23,35301883282.770004,Net Importer / High Dependency
+HKG,"China, Hong Kong SAR",0.0,168641996212.83,-168641996212.83,Net Importer / High Dependency
+AUT,Austria,3823076274.9,4193279028.77,-370202753.8699999,Balanced Intermediary / Assembly Hub
+ITA,Italy,4598971814.7,5264349066.68,-665377251.9800005,Net Importer / High Dependency
+CAN,Canada,7058492735.92,2932986757.95,4125505977.9700003,Net Importer / High Dependency
+CRI,Costa Rica,0.0,10675802967.63,-10675802967.63,Net Exporter / Supply Powerhouse
+MLT,Malta,0.0,3895577299.0099998,-3895577299.0099998,Net Exporter / Supply Powerhouse
+CHE,Switzerland,0.0,2499703269.41,-2499703269.41,Balanced Intermediary / Assembly Hub
+BEL,Belgium,0.0,9334200928.390001,-9334200928.390001,Net Importer / High Dependency
+IDN,Indonesia,0.0,5859111259.12,-5859111259.12,Net Importer / High Dependency
+CZE,Czechia,0.0,2967509402.34,-2967509402.34,Net Importer / High Dependency
+HUN,Hungary,0.0,4589171606.38,-4589171606.38,Net Importer / High Dependency
+MAR,Morocco,0.0,1339909989.32,-1339909989.32,Net Exporter / Supply Powerhouse
+PRT,Portugal,0.0,3181341832.32,-3181341832.32,Net Importer / High Dependency
+IND,India,47604069649.23,14489867763.81,33114201885.420006,Net Importer / High Dependency
+POL,Poland,0.0,3188804954.81,-3188804954.81,Net Importer / High Dependency
+FIN,Finland,0.0,739211664.91,-739211664.91,Net Importer / High Dependency
+ESP,Spain,0.0,1788271345.93,-1788271345.93,Net Importer / High Dependency
+TUR,Türkiye,7158828406.0,710575777.59,6448252628.41,Net Importer / High Dependency
+SWE,Sweden,0.0,881020007.77,-881020007.77,Net Importer / High Dependency
+BGR,Bulgaria,0.0,629208418.51,-629208418.51,Net Importer / High Dependency
+DNK,Denmark,0.0,440871529.09999996,-440871529.09999996,Net Importer / High Dependency
+ROU,Romania,0.0,3075299960.39,-3075299960.39,Net Importer / High Dependency
+NOR,Norway,0.0,96212791.75,-96212791.75,Net Importer / High Dependency
+SVK,Slovakia,0.0,748177964.29,-748177964.29,Net Importer / High Dependency
+TUN,Tunisia,0.0,518329148.08000004,-518329148.08000004,Net Importer / High Dependency
+SVN,Slovenia,0.0,168098845.44,-168098845.44,Net Importer / High Dependency
+AUS,Australia,0.0,547621198.39,-547621198.39,Net Importer / High Dependency
+ARE,United Arab Emirates,0.0,310311513.76,-310311513.76,Net Importer / High Dependency
+GRC,Greece,0.0,157905104.77,-157905104.77,Net Importer / High Dependency
+BRA,Brazil,0.0,4129532661.92,-4129532661.92,Net Importer / High Dependency
+EST,Estonia,0.0,144087110.53,-144087110.53,Net Importer / High Dependency
+RUS,Russian Federation,0.0,465068406.59,-465068406.59,Net Importer / High Dependency
+LTU,Lithuania,0.0,339625793.61,-339625793.61,Net Importer / High Dependency
+SRB,Serbia,0.0,219818911.77,-219818911.77,Net Importer / High Dependency
+LKA,Sri Lanka,0.0,43088992.64,-43088992.64,Net Importer / High Dependency
+BLR,Belarus,0.0,26110531.48,-26110531.48,Net Importer / High Dependency
+GEO,Georgia,0.0,1632561.4,-1632561.4,Net Exporter / Supply Powerhouse
+ZAF,South Africa,0.0,93644814.11,-93644814.11,Net Importer / High Dependency
+NZL,New Zealand,0.0,53383511.88,-53383511.88,Net Importer / High Dependency
+KHM,Cambodia,0.0,175816555.86,-175816555.86,Net Importer / High Dependency
+LVA,Latvia,0.0,61997717.910000004,-61997717.910000004,Net Importer / High Dependency
+LAO,Lao People's Dem. Rep.,0.0,177742506.62,-177742506.62,Net Importer / High Dependency
+PNG,Papua New Guinea,0.0,1267863.45,-1267863.45,Net Exporter / Supply Powerhouse
+LUX,Luxembourg,0.0,192449681.43,-192449681.43,Net Importer / High Dependency
+OMN,Oman,0.0,68609922.99,-68609922.99,Net Importer / High Dependency
+CYP,Cyprus,0.0,11160867.590000002,-11160867.590000002,Net Importer / High Dependency
+UKR,Ukraine,0.0,48098785.97,-48098785.97,Net Importer / High Dependency
+QAT,Qatar,0.0,21668112.03,-21668112.03,Net Importer / High Dependency
+KAZ,Kazakhstan,0.0,14334475.350000001,-14334475.350000001,Net Importer / High Dependency
+HRV,Croatia,0.0,44763140.21,-44763140.21,Net Importer / High Dependency
+WSM,Samoa,0.0,5449597.94,-5449597.94,Net Exporter / Supply Powerhouse
+KEN,Kenya,0.0,15081853.93,-15081853.93,Net Importer / High Dependency
+MAC,"China, Macao SAR",0.0,24366478.37,-24366478.37,Net Importer / High Dependency
+ISL,Iceland,0.0,9215272.65,-9215272.65,Net Importer / High Dependency
+MKD,North Macedonia,0.0,144114559.46,-144114559.46,Net Importer / High Dependency
+IRN,Iran,0.0,23467610.47,-23467610.47,Net Importer / High Dependency
+ALB,Albania,0.0,9057528.98,-9057528.98,Net Importer / High Dependency
+MUS,Mauritius,0.0,2984521.44,-2984521.44,Balanced Intermediary / Assembly Hub
+BIH,Bosnia Herzegovina,0.0,16281523.07,-16281523.07,Net Importer / High Dependency
+MLI,Mali,0.0,1897630.43,-1897630.43,Net Exporter / Supply Powerhouse
+AND,Andorra,0.0,6103945.0200000005,-6103945.0200000005,Net Importer / High Dependency
+MMR,Myanmar,0.0,9952105.559999999,-9952105.559999999,Net Importer / High Dependency
+BHR,Bahrain,0.0,1605403.4300000002,-1605403.4300000002,Net Importer / High Dependency
+NAM,Namibia,0.0,1938818.86,-1938818.86,Net Exporter / Supply Powerhouse
+CMR,Cameroon,0.0,2860061.46,-2860061.46,Balanced Intermediary / Assembly Hub
+EGY,Egypt,0.0,158163294.5,-158163294.5,Net Importer / High Dependency
+MWI,Malawi,0.0,90577.47,-90577.47,Net Exporter / Supply Powerhouse
+SLV,El Salvador,0.0,6561897.35,-6561897.35,Net Importer / High Dependency
+STP,Sao Tome and Principe,0.0,65641.23999999999,-65641.23999999999,Net Exporter / Supply Powerhouse
+ARG,Argentina,0.0,104966170.24000001,-104966170.24000001,Net Importer / High Dependency
+PAK,Pakistan,0.0,14618036.45,-14618036.45,Net Importer / High Dependency
+FSM,FS Micronesia,0.0,19644.0,-19644.0,Net Exporter / Supply Powerhouse
+SEN,Senegal,0.0,767256.27,-767256.27,Net Importer / High Dependency
+CYM,Cayman Isds,0.0,2049854.54,-2049854.54,Balanced Intermediary / Assembly Hub
+CHL,Chile,0.0,39895317.36,-39895317.36,Net Importer / High Dependency
+URY,Uruguay,0.0,7325144.45,-7325144.45,Net Importer / High Dependency
+MDG,Madagascar,0.0,237770.18,-237770.18,Net Exporter / Supply Powerhouse
+GAB,Gabon,0.0,1476427.49,-1476427.49,Net Importer / High Dependency
+YEM,Yemen,0.0,137335.38,-137335.38,Net Exporter / Supply Powerhouse
+PAN,Panama,0.0,3450308.1,-3450308.1,Net Importer / High Dependency
+TZA,United Rep. of Tanzania,0.0,3743472.2800000003,-3743472.2800000003,Net Importer / High Dependency
+SAU,Saudi Arabia,0.0,50404352.62,-50404352.62,Net Importer / High Dependency
+SLE,Sierra Leone,0.0,84707.45,-84707.45,Balanced Intermediary / Assembly Hub
+CCK,Cocos Isds,0.0,2064.5,-2064.5,Net Exporter / Supply Powerhouse
+RWA,Rwanda,0.0,536729.63,-536729.63,Balanced Intermediary / Assembly Hub
+TTO,Trinidad and Tobago,0.0,1168372.32,-1168372.32,Net Importer / High Dependency
+SOM,Somalia,0.0,47480.19,-47480.19,Net Exporter / Supply Powerhouse
+DZA,Algeria,0.0,26453205.740000002,-26453205.740000002,Net Importer / High Dependency
+MHL,Marshall Isds,0.0,166592.29,-166592.29,Net Exporter / Supply Powerhouse
+COL,Colombia,0.0,33723411.21,-33723411.21,Net Importer / High Dependency
+MNP,N. Mariana Isds,0.0,6.49,-6.49,Net Exporter / Supply Powerhouse
+DOM,Dominican Rep.,0.0,5469707.62,-5469707.62,Net Importer / High Dependency
+GIN,Guinea,0.0,664884.0100000001,-664884.0100000001,Balanced Intermediary / Assembly Hub
+AGO,Angola,0.0,1062738.21,-1062738.21,Net Importer / High Dependency
+KWT,Kuwait,0.0,3143782.21,-3143782.21,Net Importer / High Dependency
+AFG,Afghanistan,0.0,191774.97000000003,-191774.97000000003,Net Importer / High Dependency
+JOR,Jordan,0.0,1952241.14,-1952241.14,Net Importer / High Dependency
+MDV,Maldives,0.0,612099.71,-612099.71,Net Importer / High Dependency
+MNE,Montenegro,0.0,572178.8400000001,-572178.8400000001,Net Importer / High Dependency
+SWZ,Eswatini,0.0,379900.61,-379900.61,Balanced Intermediary / Assembly Hub
+BRN,Brunei Darussalam,0.0,356137.37,-356137.37,Net Importer / High Dependency
+MRT,Mauritania,0.0,873771.22,-873771.22,Balanced Intermediary / Assembly Hub
+TGO,Togo,0.0,126604.79000000001,-126604.79000000001,Balanced Intermediary / Assembly Hub
+ECU,Ecuador,0.0,7248516.29,-7248516.29,Net Importer / High Dependency
+GMB,Gambia,0.0,54115.990000000005,-54115.990000000005,Net Exporter / Supply Powerhouse
+TCA,Turks and Caicos Isds,0.0,157622.61,-157622.61,Net Exporter / Supply Powerhouse
+KGZ,Kyrgyzstan,0.0,2322387.76,-2322387.76,Net Importer / High Dependency
+TUV,Tuvalu,0.0,683677.99,-683677.99,Net Exporter / Supply Powerhouse
+CUW,Curaçao,0.0,2333958.86,-2333958.86,Net Importer / High Dependency
+NCL,New Caledonia,0.0,560377.02,-560377.02,Net Importer / High Dependency
+TLS,Timor-Leste,0.0,114855.29000000001,-114855.29000000001,Net Exporter / Supply Powerhouse
+SHN,Saint Helena,0.0,267672.36,-267672.36,Net Exporter / Supply Powerhouse
+TJK,Tajikistan,0.0,116732.07,-116732.07,Net Exporter / Supply Powerhouse
+SXM,Saint Maarten,0.0,118588.37,-118588.37,Balanced Intermediary / Assembly Hub
+BGD,Bangladesh,0.0,210940819.45000002,-210940819.45000002,Net Importer / High Dependency
+TCD,Chad,0.0,1733427.13,-1733427.13,Net Importer / High Dependency
+COD,Dem. Rep. of the Congo,0.0,552687.88,-552687.88,Net Importer / High Dependency
+ARM,Armenia,0.0,933916.8,-933916.8,Net Importer / High Dependency
+PYF,French Polynesia,0.0,361002.26,-361002.26,Net Importer / High Dependency
+ZWE,Zimbabwe,0.0,202503.31999999998,-202503.31999999998,Net Importer / High Dependency
+NIC,Nicaragua,0.0,2779757.88,-2779757.88,Net Importer / High Dependency
+MDA,Rep. of Moldova,0.0,1081859.3299999998,-1081859.3299999998,Net Importer / High Dependency
+PRK,Dem. People's Rep. of Korea,0.0,215320.13,-215320.13,Net Exporter / Supply Powerhouse
+LBN,Lebanon,0.0,2565537.5300000003,-2565537.5300000003,Net Importer / High Dependency
+VGB,Br. Virgin Isds,0.0,646780.47,-646780.47,Balanced Intermediary / Assembly Hub
+HND,Honduras,0.0,6931473.73,-6931473.73,Net Importer / High Dependency
+UZB,Uzbekistan,0.0,3831342.99,-3831342.99,Net Importer / High Dependency
+MSR,Montserrat,0.0,9478.63,-9478.63,Net Exporter / Supply Powerhouse
+PSE,State of Palestine,0.0,102201.67,-102201.67,Net Exporter / Supply Powerhouse
+NER,Niger,0.0,1437.14,-1437.14,Balanced Intermediary / Assembly Hub
+VEN,Venezuela,0.0,1025901.08,-1025901.08,Net Importer / High Dependency
+PER,Peru,0.0,32542175.45,-32542175.45,Net Importer / High Dependency
+VCT,Saint Vincent and the Grenadines,0.0,19920.09,-19920.09,Net Exporter / Supply Powerhouse
+SYC,Seychelles,0.0,122978.18,-122978.18,Net Importer / High Dependency
+CPV,Cabo Verde,0.0,3543.71,-3543.71,Balanced Intermediary / Assembly Hub
+MNG,Mongolia,0.0,1479801.24,-1479801.24,Net Importer / High Dependency
+HTI,Haiti,0.0,431962.15,-431962.15,Net Importer / High Dependency
+AZE,Azerbaijan,0.0,1143974.31,-1143974.31,Net Importer / High Dependency
+COG,Congo,0.0,186754.88999999998,-186754.88999999998,Net Importer / High Dependency
+JAM,Jamaica,0.0,910630.4299999999,-910630.4299999999,Net Importer / High Dependency
+BOL,Bolivia (Plurinational State of),0.0,1289532.07,-1289532.07,Net Importer / High Dependency
+LBR,Liberia,0.0,178499.38,-178499.38,Net Importer / High Dependency
+FRO,Faroe Isds,0.0,84154.73,-84154.73,Net Exporter / Supply Powerhouse
+ETH,Ethiopia,0.0,2734303.11,-2734303.11,Net Importer / High Dependency
+ATG,Antigua and Barbuda,0.0,351153.33999999997,-351153.33999999997,Net Importer / High Dependency
+GTM,Guatemala,0.0,3991392.52,-3991392.52,Net Importer / High Dependency
+SYR,Syria,0.0,111323.13,-111323.13,Net Importer / High Dependency
+GHA,Ghana,0.0,23537824.33,-23537824.33,Net Importer / High Dependency
+IRQ,Iraq,0.0,1004039.94,-1004039.94,Net Importer / High Dependency
+UGA,Uganda,0.0,557306.16,-557306.16,Net Importer / High Dependency
+SPM,Saint Pierre and Miquelon,0.0,99442.17000000001,-99442.17000000001,Balanced Intermediary / Assembly Hub
+MOZ,Mozambique,0.0,525463.12,-525463.12,Net Importer / High Dependency
+DMA,Dominica,0.0,75298.42,-75298.42,Net Exporter / Supply Powerhouse
+BFA,Burkina Faso,0.0,109435.57,-109435.57,Net Importer / High Dependency
+CUB,Cuba,0.0,530542.83,-530542.83,Net Importer / High Dependency
+NGA,Nigeria,0.0,14445343.62,-14445343.62,Net Importer / High Dependency
+KNA,Saint Kitts and Nevis,0.0,6433552.11,-6433552.11,Net Importer / High Dependency
+BRB,Barbados,0.0,306223.55,-306223.55,Net Importer / High Dependency
+WLF,Wallis and Futuna Isds,0.0,261.18,-261.18,Net Exporter / Supply Powerhouse
+PCN,Pitcairn,0.0,17099.16,-17099.16,Net Exporter / Supply Powerhouse
+NRU,Naoero,0.0,2853.16,-2853.16,Net Exporter / Supply Powerhouse
+SDN,Sudan,0.0,42679.81,-42679.81,Net Importer / High Dependency
+CIV,Côte d'Ivoire,0.0,1378285.78,-1378285.78,Net Importer / High Dependency
+SSD,South Sudan,0.0,35977.31,-35977.31,Net Exporter / Supply Powerhouse
+SMR,San Marino,0.0,735027.7,-735027.7,Net Importer / High Dependency
+PRY,Paraguay,0.0,25278260.009999998,-25278260.009999998,Net Importer / High Dependency
+TON,Tonga,0.0,0.75,-0.75,Net Importer / High Dependency
+BWA,Botswana,0.0,74632.13,-74632.13,Net Importer / High Dependency
+NFK,Norfolk Isds,0.0,1282.54,-1282.54,Net Exporter / Supply Powerhouse
+VUT,Vanuatu,0.0,294.55,-294.55,Net Exporter / Supply Powerhouse
+AIA,Anguilla,0.0,72260.78,-72260.78,Net Importer / High Dependency
+CXR,Christmas Isds,0.0,829.83,-829.83,Net Exporter / Supply Powerhouse
+TKM,Turkmenistan,0.0,212238.18,-212238.18,Net Importer / High Dependency
+BTN,Bhutan,0.0,49982.74,-49982.74,Net Importer / High Dependency
+SUR,Suriname,0.0,240767.6,-240767.6,Net Importer / High Dependency
+VAT,Holy See (Vatican City State),0.0,2322.58,-2322.58,Net Exporter / Supply Powerhouse
+BEN,Benin,0.0,151542.22999999998,-151542.22999999998,Net Importer / High Dependency
+TKL,Tokelau,0.0,1709430.61,-1709430.61,Net Importer / High Dependency
+BMU,Bermuda,0.0,107166.82,-107166.82,Net Importer / High Dependency
+ASM,American Samoa,0.0,23819.949999999997,-23819.949999999997,Net Importer / High Dependency
+DJI,Djibouti,0.0,101707.07,-101707.07,Net Importer / High Dependency
+CAF,Central African Rep.,0.0,25312.09,-25312.09,Net Importer / High Dependency
+NIU,Niue,0.0,0.0,0.0,Net Importer / High Dependency
+KIR,Kiribati,0.0,3447.39,-3447.39,Net Exporter / Supply Powerhouse
+BLM,Saint Barthélemy,0.0,84326.09,-84326.09,Net Importer / High Dependency
+LCA,Saint Lucia,0.0,65179.64,-65179.64,Net Importer / High Dependency
+ABW,Aruba,0.0,170945.91,-170945.91,Net Importer / High Dependency
+GUM,Guam,0.0,7677.67,-7677.67,Net Importer / High Dependency
+FJI,Fiji,0.0,78541.29000000001,-78541.29000000001,Net Importer / High Dependency
+FLK,Falkland Isds (Malvinas),0.0,0.0,0.0,Net Importer / High Dependency
+ESH,Western Sahara,0.0,39529.84,-39529.84,Net Importer / High Dependency
+NPL,Nepal,0.0,1275243.81,-1275243.81,Net Importer / High Dependency
+GUY,Guyana,0.0,611999.09,-611999.09,Net Importer / High Dependency
+ERI,Eritrea,0.0,10203.46,-10203.46,Net Importer / High Dependency
+COK,Cook Isds,0.0,4632.88,-4632.88,Net Importer / High Dependency
+LSO,Lesotho,0.0,2536.98,-2536.98,Net Importer / High Dependency
+ZMB,Zambia,0.0,152011.38,-152011.38,Net Importer / High Dependency
+SLB,Solomon Isds,0.0,2650.17,-2650.17,Net Importer / High Dependency
+BLZ,Belize,0.0,149035.07,-149035.07,Net Importer / High Dependency
+GRD,Grenada,0.0,64996.380000000005,-64996.380000000005,Net Importer / High Dependency
+GIB,Gibraltar,0.0,48467.47,-48467.47,Net Importer / High Dependency
+BDI,Burundi,0.0,872.52,-872.52,Net Importer / High Dependency
+LBY,Libya,0.0,488418.24,-488418.24,Net Importer / High Dependency
+GRL,Greenland,0.0,12.57,-12.57,Net Importer / High Dependency
+BHS,Bahamas,0.0,250540.05,-250540.05,Net Importer / High Dependency
+GNB,Guinea-Bissau,0.0,25073.79,-25073.79,Net Importer / High Dependency
+COM,Comoros,0.0,2397.47,-2397.47,Net Importer / High Dependency
+BES,Bonaire,0.0,4568.5,-4568.5,Net Importer / High Dependency
+PLW,Palau,0.0,430.36,-430.36,Net Importer / High Dependency
+GNQ,Equatorial Guinea,0.0,484904.67,-484904.67,Net Importer / High Dependency
