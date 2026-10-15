@@ -1,0 +1,35 @@
+## tier-knowledge.ttl
+##
+## Knowledge you add yourself. It is not in any table, so R2RML cannot
+## generate it. Load this file into the same graph as the mapping output.
+## Edit the "feeds" links if your course material says otherwise.
+
+@prefix ul:   <https://ul.edu.lb/kr/scm#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tier: <https://ul.edu.lb/kr/id/tier/> .
+
+# Supply chain order: equipment -> wafers -> chips
+tier:Tier_1_Equipment  ul:feeds  tier:Tier_2_Wafers .
+tier:Tier_2_Wafers     ul:feeds  tier:Tier_3A_Logic_Processors ,
+                                 tier:Tier_3B_Memory ,
+                                 tier:Tier_3C_Other_ICs .
+
+# Short vocabulary so the terms have meaning
+ul:TradeObservation  rdfs:comment "One country exporting one tier to another country in one year." .
+ul:exportedBy        rdfs:domain ul:TradeObservation ; rdfs:range ul:Country .
+ul:importedBy        rdfs:domain ul:TradeObservation ; rdfs:range ul:Country .
+ul:hasTier           rdfs:domain ul:TradeObservation ; rdfs:range ul:Tier .
+ul:feeds             rdfs:domain ul:Tier ;             rdfs:range ul:Tier .
+
+# Country classes: the mapping gives each country one of these, worked out
+# from its trade balance number
+ul:SurplusCountry   rdfs:subClassOf ul:Country ;
+    rdfs:comment "Exports more than it imports (positive net trade balance)." .
+ul:DeficitCountry   rdfs:subClassOf ul:Country ;
+    rdfs:comment "Imports more than it exports (negative net trade balance)." .
+ul:BalancedCountry  rdfs:subClassOf ul:Country ;
+    rdfs:comment "Net trade balance of exactly zero." .
+
+# The strategic role in nodes_countries.csv is the file's own label. It was
+# not checked against the numbers (many labels contradict them).
+ul:strategicRole  rdfs:domain ul:Country .

@@ -1,0 +1,124 @@
+## trade-mapping.ttl
+##
+## R2RML mapping for the semiconductor trade knowledge graph.
+## Three tables go in, one graph comes out:
+##   trades     (edges file)  -> one TradeObservation per row
+##   countries  (file 1)      -> country facts: balance, totals, strategic role
+##   tiers      (file 2)      -> tier facts: name (category_name), bottleneck
+##
+## Table names below ("trades", "countries", "tiers") must match the table
+## names you load into your database. Rename them here if yours differ.
+
+@prefix rr:  <http://www.w3.org/ns/r2rml#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ul:  <https://ul.edu.lb/kr/scm#> .
+
+########################################################################
+## Trade observations: one row of the trades table = one trade
+########################################################################
+
+<#TradeObservations>
+    rr:logicalTable [ rr:tableName "trades" ] ;
+
+    # Key = exporter name + importer name + tier + year. Your data has no
+    # duplicates on exporter/importer/tier, so each row is its own trade.
+    rr:subjectMap [
+        rr:template "https://ul.edu.lb/kr/id/trade/{exporter_name}/{importer_name}/{tier}/{year}" ;
+        rr:class ul:TradeObservation
+    ] ;
+
+    # Links to the other nodes (country and tier IRIs use the same templates
+    # as the maps below, so no join is needed).
+    rr:predicateObjectMap [ rr:predicate ul:exportedBy ;
+        rr:objectMap [ rr:template "https://ul.edu.lb/kr/id/country/{exporter_name}" ] ] ;
+
+    rr:predicateObjectMap [ rr:predicate ul:importedBy ;
+        rr:objectMap [ rr:template "https://ul.edu.lb/kr/id/country/{importer_name}" ] ] ;
+
+    rr:predicateObjectMap [ rr:predicate ul:hasTier ;
+        rr:objectMap [ rr:template "https://ul.edu.lb/kr/id/tier/{tier}" ] ] ;
+
+    # Plain values on the trade
+    rr:predicateObjectMap [ rr:predicate ul:year ;
+        rr:objectMap [ rr:column "year" ; rr:datatype xsd:integer ] ] ;
+
+    rr:predicateObjectMap [ rr:predicate ul:tradeValueUsd ;
+        rr:objectMap [ rr:column "trade_value_usd" ; rr:datatype xsd:decimal ] ] .
+
+########################################################################
+## Countries, part 1: every country found in the trades table
+## (205 only import, 20 also export; both kinds must exist as nodes)
+########################################################################
+
+## Country IRIs use the country NAME (e.g. .../country/China). Names with
+## spaces or accents are encoded automatically by R2RML. The ISO code is
+## kept as a plain property.
+<#CountriesFromTrades>
+    rr:logicalTable [ rr:sqlQuery """
+        SELECT exporter_iso AS iso, exporter_name AS name FROM trades
+        UNION
+        SELECT importer_iso AS iso, importer_name AS name FROM trades""" ] ;
+    rr:subjectMap [
+        rr:template "https://ul.edu.lb/kr/id/country/{name}" ;
+        rr:class ul:Country
+    ] ;
+    rr:predicateObjectMap [ rr:predicate ul:isoCode ;
+        rr:objectMap [ rr:column "iso" ] ] ;
+    rr:predicateObjectMap [ rr:predicate ul:name ;
+        rr:objectMap [ rr:column "name" ] ] .
+
+########################################################################
+## Countries, part 2: the facts from file 1
+## Same IRI as part 1, so these facts attach to the same country node.
+## IMPORTANT: country_name here must be spelled exactly like the names in
+## the trades table, otherwise these facts land on a separate node.
+########################################################################
+
+<#CountryProfiles>
+    # position is worked out from the balance NUMBER, not from the file's
+    # strategic_role label, because the labels contradict the numbers.
+    rr:logicalTable [ rr:sqlQuery """
+        SELECT country_iso, country_name,
+       total_export_usd, total_import_usd,
+       net_trade_balance_usd, strategic_role,
+       CASE
+           WHEN CAST(net_trade_balance_usd AS numeric) > 0 THEN 'Surplus'
+           WHEN CAST(net_trade_balance_usd AS numeric) < 0 THEN 'Deficit'
+           ELSE 'Balanced'
+       END AS position
+FROM countries""" ] ;
+    rr:subjectMap [
+        rr:template "https://ul.edu.lb/kr/id/country/{country_name}" ;
+        rr:class ul:Country
+    ] ;
+    rr:predicateObjectMap [ rr:predicate ul:totalExportUsd ;
+        rr:objectMap [ rr:column "total_export_usd" ; rr:datatype xsd:decimal ] ] ;
+    rr:predicateObjectMap [ rr:predicate ul:totalImportUsd ;
+        rr:objectMap [ rr:column "total_import_usd" ; rr:datatype xsd:decimal ] ] ;
+    rr:predicateObjectMap [ rr:predicate ul:netTradeBalanceUsd ;
+        rr:objectMap [ rr:column "net_trade_balance_usd" ; rr:datatype xsd:decimal ] ] ;
+    # The file's own assessment of the country, kept as a plain value
+    rr:predicateObjectMap [ rr:predicate ul:strategicRole ;
+        rr:objectMap [ rr:column "strategic_role" ] ] ;
+    # Derived class: SurplusCountry, DeficitCountry or BalancedCountry
+    rr:predicateObjectMap [ rr:predicate rdf:type ;
+        rr:objectMap [ rr:template "https://ul.edu.lb/kr/scm#{position}Country" ] ] .
+
+
+########################################################################
+## Tiers: the facts from supply_chain_tiers.csv (table "tiers")
+## Same IRI as the tier IRIs made from the trades table, so these facts
+## attach to the same tier nodes.
+########################################################################
+
+<#Tiers>
+    rr:logicalTable [ rr:tableName "tiers" ] ;
+    rr:subjectMap [
+        rr:template "https://ul.edu.lb/kr/id/tier/{tier_id}" ;
+        rr:class ul:Tier
+    ] ;
+    rr:predicateObjectMap [ rr:predicate ul:categoryName ;
+        rr:objectMap [ rr:column "category_name" ] ] ;
+    rr:predicateObjectMap [ rr:predicate ul:strategicBottleneck ;
+        rr:objectMap [ rr:column "strategic_bottleneck" ] ] .
