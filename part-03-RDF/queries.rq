@@ -1,0 +1,267 @@
+PREFIX ul:   <https://ul.edu.lb/kr/scm#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+# 1. Count the main classes in the graph.
+SELECT ?class (COUNT(DISTINCT ?resource) AS ?count)
+WHERE {
+  VALUES ?class {
+    ul:TradeObservation ul:Country ul:Tier
+    ul:SurplusCountry ul:DeficitCountry ul:BalancedCountry
+  }
+  ?resource rdf:type ?class
+}
+GROUP BY ?class
+ORDER BY DESC(?count)
+
+# 2. Find the largest individual trade flows for 2024.
+SELECT ?exporterName ?importerName ?tierName ?value
+WHERE {
+  ?trade a ul:TradeObservation ;
+         ul:exportedBy ?exporter ;
+         ul:importedBy ?importer ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+  ?exporter ul:name ?exporterName .
+  ?importer ul:name ?importerName .
+  ?tier ul:categoryName ?tierName .
+}
+ORDER BY DESC(?value)
+LIMIT 20
+
+# 3. Rank exporters by the sum of mapped 2024 trade observations.
+SELECT ?countryName (SUM(?value) AS ?totalExportValue)
+WHERE {
+  ?trade a ul:TradeObservation ;
+         ul:exportedBy ?country ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+  ?country ul:name ?countryName .
+}
+GROUP BY ?countryName
+ORDER BY DESC(?totalExportValue)
+LIMIT 15
+
+# 4. Compare 2024 import volume by tier and country.
+SELECT ?tierName ?countryName (SUM(?value) AS ?totalImportValue)
+WHERE {
+  ?trade a ul:TradeObservation ;
+         ul:importedBy ?country ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+  ?country ul:name ?countryName .
+  ?tier ul:categoryName ?tierName .
+}
+GROUP BY ?tierName ?countryName
+ORDER BY ?tierName DESC(?totalImportValue)
+LIMIT 30
+
+# 5. Traverse the tier supply-chain hierarchy.
+SELECT ?upstreamName ?downstreamName
+WHERE {
+  ?upstream ul:feeds+ ?downstream .
+  ?upstream ul:categoryName ?upstreamName .
+  ?downstream ul:categoryName ?downstreamName .
+}
+ORDER BY ?upstreamName ?downstreamName
+
+# 6. Summarize trade for tiers with a strategic bottleneck description.
+SELECT ?tierName ?bottleneck (COUNT(DISTINCT ?trade) AS ?tradeCount)
+       (SUM(?value) AS ?totalTradeValue)
+WHERE {
+  ?tier ul:categoryName ?tierName ;
+        ul:strategicBottleneck ?bottleneck .
+  ?trade a ul:TradeObservation ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+}
+GROUP BY ?tierName ?bottleneck
+ORDER BY DESC(?totalTradeValue)
+
+# 7. Inspect countries with the most negative net trade balances.
+SELECT ?countryName ?balance ?reportedRole
+WHERE {
+  ?country a ul:DeficitCountry ;
+           ul:name ?countryName ;
+           ul:netTradeBalanceUsd ?balance ;
+           ul:strategicRole ?reportedRole .
+}
+ORDER BY ASC(?balance)
+LIMIT 20
+
+# 8. Find country nodes that have no country-profile balance.
+SELECT ?country ?countryName
+WHERE {
+  ?country a ul:Country .
+  OPTIONAL { ?country ul:name ?countryName }
+  FILTER NOT EXISTS { ?country ul:netTradeBalanceUsd ?balance }
+}
+ORDER BY ?countryName
+
+# 9. Check whether each country profile's balance equals exports minus imports.
+SELECT ?countryName ?reportedBalance ?calculatedBalance
+WHERE {
+  ?country ul:name ?countryName ;
+           ul:totalExportUsd ?exports ;
+           ul:totalImportUsd ?imports ;
+           ul:netTradeBalanceUsd ?reportedBalance .
+  BIND(?exports - ?imports AS ?calculatedBalance)
+  FILTER(ABS(?reportedBalance - ?calculatedBalance) > 0.01)
+}
+ORDER BY ?countryName
+
+# 10. Find deficit countries supplied by the USA and measure the USA share
+#     of each country's observed 2024 semiconductor imports.
+#     This is a share of trade observations in this graph, not all imports.
+SELECT ?countryName ?netBalance ?observedImports ?usSuppliedValue
+       (?usSuppliedValue / ?observedImports * 100 AS ?usImportSharePercent)
+WHERE {
+  ?country a ul:DeficitCountry ;
+           ul:name ?countryName ;
+           ul:netTradeBalanceUsd ?netBalance .
+  {
+    SELECT ?country
+           (SUM(?value) AS ?observedImports)
+           (SUM(IF(?supplier = ?us, ?value, 0.0)) AS ?usSuppliedValue)
+    WHERE {
+      ?trade a ul:TradeObservation ;
+             ul:importedBy ?country ;
+             ul:exportedBy ?supplier ;
+             ul:tradeValueUsd ?value ;
+             ul:year 2024 .
+      ?us ul:name "USA" .
+    }
+    GROUP BY ?country
+  }
+  FILTER(?usSuppliedValue > 0)
+}
+ORDER BY DESC(?usImportSharePercent)
+
+# 11. Find deficit countries that also export particular tiers to other
+#     countries. Profile deficits and mapped trade flows are separate sources.
+SELECT ?supplierName ?netBalance ?tierName
+       (COUNT(DISTINCT ?recipient) AS ?recipientCount)
+       (SUM(?value) AS ?exportedTradeValue)
+WHERE {
+  ?supplier a ul:DeficitCountry ;
+            ul:name ?supplierName ;
+            ul:netTradeBalanceUsd ?netBalance .
+  ?trade a ul:TradeObservation ;
+         ul:exportedBy ?supplier ;
+         ul:importedBy ?recipient ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+  ?tier ul:categoryName ?tierName .
+  FILTER(?supplier != ?recipient)
+}
+GROUP BY ?supplierName ?netBalance ?tierName
+ORDER BY DESC(?exportedTradeValue)
+
+# 12. Identify deficit countries importing tiers with a strategic bottleneck
+#     description, including the number of observed supplier countries.
+SELECT ?importerName ?netBalance ?tierName ?bottleneck
+       (COUNT(DISTINCT ?supplier) AS ?supplierCount)
+       (SUM(?value) AS ?observedImportValue)
+WHERE {
+  ?importer a ul:DeficitCountry ;
+            ul:name ?importerName ;
+            ul:netTradeBalanceUsd ?netBalance .
+  ?tier ul:categoryName ?tierName ;
+        ul:strategicBottleneck ?bottleneck .
+  ?trade a ul:TradeObservation ;
+         ul:importedBy ?importer ;
+         ul:exportedBy ?supplier ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+}
+GROUP BY ?importerName ?netBalance ?tierName ?bottleneck
+ORDER BY DESC(?observedImportValue)
+
+# 13. Estimate supplier concentration for each country's observed imports
+#     of each tier. A high leading-supplier share indicates less diversity
+#     among the suppliers represented by this graph.
+SELECT ?importerName ?tierName ?supplierName ?supplierValue
+       ?tierImportValue
+       (?supplierValue / ?tierImportValue * 100 AS ?supplierSharePercent)
+WHERE {
+  {
+    SELECT ?importer ?tier ?supplier
+           (SUM(?value) AS ?supplierValue)
+    WHERE {
+      ?trade a ul:TradeObservation ;
+             ul:importedBy ?importer ;
+             ul:exportedBy ?supplier ;
+             ul:hasTier ?tier ;
+             ul:tradeValueUsd ?value ;
+             ul:year 2024 .
+    }
+    GROUP BY ?importer ?tier ?supplier
+  }
+  {
+    SELECT ?importer ?tier (SUM(?value) AS ?tierImportValue)
+    WHERE {
+      ?trade a ul:TradeObservation ;
+             ul:importedBy ?importer ;
+             ul:hasTier ?tier ;
+             ul:tradeValueUsd ?value ;
+             ul:year 2024 .
+    }
+    GROUP BY ?importer ?tier
+  }
+  ?importer ul:name ?importerName .
+  ?tier ul:categoryName ?tierName .
+  ?supplier ul:name ?supplierName .
+}
+ORDER BY DESC(?supplierSharePercent)
+LIMIT 50
+
+# 14. Find countries whose numeric balance-derived class conflicts with the
+#     source file's strategic-role label.
+SELECT ?countryName ?balance ?balanceClass ?strategicRole
+WHERE {
+  ?country ul:name ?countryName ;
+           ul:netTradeBalanceUsd ?balance ;
+           ul:strategicRole ?strategicRole ;
+           rdf:type ?balanceClass .
+  VALUES ?balanceClass {
+    ul:SurplusCountry ul:DeficitCountry ul:BalancedCountry
+  }
+  FILTER(
+    (?balanceClass = ul:DeficitCountry &&
+      CONTAINS(LCASE(STR(?strategicRole)), "exporter")) ||
+    (?balanceClass = ul:SurplusCountry &&
+      CONTAINS(LCASE(STR(?strategicRole)), "importer")) ||
+    (?balanceClass = ul:BalancedCountry &&
+      (CONTAINS(LCASE(STR(?strategicRole)), "importer") ||
+       CONTAINS(LCASE(STR(?strategicRole)), "exporter")))
+  )
+}
+ORDER BY ?balance
+
+# 15. Trace downstream tiers to their upstream tier requirements, then
+#     measure observed 2024 imports of the downstream tier by country.
+#     The feeds relation describes tier dependencies, not country-specific
+#     production flows.
+SELECT ?importerName ?upstreamTierName ?downstreamTierName ?bottleneck
+       (SUM(?value) AS ?downstreamImportValue)
+WHERE {
+  ?upstream ul:feeds+ ?downstream ;
+            ul:categoryName ?upstreamTierName .
+  ?downstream ul:categoryName ?downstreamTierName .
+  OPTIONAL { ?upstream ul:strategicBottleneck ?bottleneck }
+  ?trade a ul:TradeObservation ;
+         ul:importedBy ?importer ;
+         ul:hasTier ?downstream ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+  ?importer ul:name ?importerName .
+}
+GROUP BY ?importerName ?upstreamTierName ?downstreamTierName ?bottleneck
+ORDER BY DESC(?downstreamImportValue)
+LIMIT 50
