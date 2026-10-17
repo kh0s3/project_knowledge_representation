@@ -1,0 +1,66 @@
+header to always use
+
+PREFIX ul:   <https://ul.edu.lb/kr/scm#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+
+QUESTION 1: Where are the massive streams of essential semiconductor parts flowing from dominant producer nations into countries that are unable to produce them locally and highly vulnerable to supply disruptions?
+
+SELECT ?exporterName ?importerName ?tierName ?bottleneck ?tradeValueUsd
+WHERE {
+  # Massive trade flows in 2024
+  ?trade a ul:TradeObservation ;
+         ul:exportedBy ?exporter ;
+         ul:importedBy ?importer ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?tradeValueUsd ;
+         ul:year 2024 .
+
+  # Dominant producer nations (Surplus Countries)
+  ?exporter a ul:SurplusCountry ;
+            ul:name ?exporterName .
+
+  # Non-producing / vulnerable nations (Deficit Countries)
+  ?importer a ul:DeficitCountry ;
+            ul:name ?importerName .
+
+  # Essential parts & strategic bottlenecks
+  ?tier ul:categoryName ?tierName .
+  OPTIONAL { ?tier ul:strategicBottleneck ?bottleneck }
+}
+ORDER BY DESC(?tradeValueUsd)
+LIMIT 25
+
+
+
+QUESTION 2: which countries have a trade deficit, but are critical because others depend on it
+
+SELECT ?criticalCountryName ?netBalance ?tierExported
+       (COUNT(DISTINCT ?dependentRecipient) AS ?dependentCountryCount)
+       (SUM(?value) AS ?totalExportedValue)
+WHERE {
+  # 1. Country has an overall trade deficit
+  ?criticalCountry a ul:DeficitCountry ;
+                   ul:name ?criticalCountryName ;
+                   ul:netTradeBalanceUsd ?netBalance .
+
+  # 2. Yet it actively exports key tiers to downstream dependent countries
+  ?trade a ul:TradeObservation ;
+         ul:exportedBy ?criticalCountry ;
+         ul:importedBy ?dependentRecipient ;
+         ul:hasTier ?tier ;
+         ul:tradeValueUsd ?value ;
+         ul:year 2024 .
+
+  ?tier ul:categoryName ?tierExported .
+
+  # Exclude internal/self trade
+  FILTER(?criticalCountry != ?dependentRecipient)
+}
+GROUP BY ?criticalCountryName ?netBalance ?tierExported
+HAVING (COUNT(DISTINCT ?dependentRecipient) > 0)
+ORDER BY DESC(?totalExportedValue)
+LIMIT 25
+

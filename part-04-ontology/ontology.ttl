@@ -1,208 +1,130 @@
-@prefix : <https://ul.edu.lb/kr/scm#> .
-@prefix ul: <https://ul.edu.lb/kr/scm#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://ul.edu.lb/kr/scm#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ul: <https://ul.edu.lb/kr/scm#> .
 
-<https://ul.edu.lb/kr/scm> rdf:type owl:Ontology ;
-                            owl:imports <file:/C:/Users/Bouly/Desktop/Masters%20II/M500%20-%20Knowledge%20Represantation%20&%20Reasoning/project_knowledge_representation/part-03-RDF/trade-mapping.ttl> .
+<https://ul.edu.lb/kr/scm> rdf:type owl:Ontology .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  https://ul.edu.lb/kr/scm#exportedBy
 ul:exportedBy rdf:type owl:ObjectProperty ,
                        owl:FunctionalProperty ;
               rdfs:domain ul:TradeObservation ;
               rdfs:range ul:Country .
 
+ul:importedBy rdf:type owl:ObjectProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain ul:TradeObservation ;
+              rdfs:range ul:Country .
 
-###  https://ul.edu.lb/kr/scm#feeds
+ul:hasTier rdf:type owl:ObjectProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain ul:TradeObservation ;
+           rdfs:range ul:Tier .
+
 ul:feeds rdf:type owl:ObjectProperty ,
                   owl:TransitiveProperty ;
          rdfs:domain ul:Tier ;
          rdfs:range ul:Tier .
 
 
-###  https://ul.edu.lb/kr/scm#hasTier
-ul:hasTier rdf:type owl:ObjectProperty ,
-                    owl:FunctionalProperty ;
-           rdfs:domain ul:TradeObservation ;
-           rdfs:range ul:Tier .
-
-
-###  https://ul.edu.lb/kr/scm#importedBy
-ul:importedBy rdf:type owl:ObjectProperty ,
-                       owl:FunctionalProperty ;
-              rdfs:domain ul:TradeObservation ;
-              rdfs:range ul:Country .
-
-
 #################################################################
-#    Data properties
+#    Data Properties
 #################################################################
 
-###  https://ul.edu.lb/kr/scm#categoryName
-ul:categoryName rdf:type owl:DatatypeProperty ,
-                         owl:FunctionalProperty ;
-                rdfs:domain ul:Tier ;
-                rdfs:range xsd:string .
-
-
-###  https://ul.edu.lb/kr/scm#isoCode
-ul:isoCode rdf:type owl:DatatypeProperty ,
-                    owl:FunctionalProperty ;
-           rdfs:domain ul:Country ;
-           rdfs:range xsd:string .
-
-
-###  https://ul.edu.lb/kr/scm#name
-ul:name rdf:type owl:DatatypeProperty ,
+# --- TradeObservation Properties ---
+ul:year rdf:type owl:DatatypeProperty ,
                  owl:FunctionalProperty ;
-        rdfs:domain ul:Country ;
-        rdfs:range xsd:string .
+        rdfs:domain ul:TradeObservation ;
+        rdfs:range xsd:integer .
 
-
-###  https://ul.edu.lb/kr/scm#netTradeBalanceUsd
-ul:netTradeBalanceUsd rdf:type owl:DatatypeProperty ,
-                               owl:FunctionalProperty ;
-                      rdfs:domain ul:Country ;
-                      rdfs:range xsd:decimal .
-
-
-###  https://ul.edu.lb/kr/scm#strategicBottleneck
-ul:strategicBottleneck rdf:type owl:DatatypeProperty ;
-                       rdfs:domain ul:Tier ;
-                       rdfs:range xsd:string .
-
-
-###  https://ul.edu.lb/kr/scm#strategicRole
-ul:strategicRole rdf:type owl:DatatypeProperty ;
-                 rdfs:domain ul:Country ;
-                 rdfs:range xsd:string .
-
-
-###  https://ul.edu.lb/kr/scm#totalExportUsd
-ul:totalExportUsd rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  rdfs:domain ul:Country ;
-                  rdfs:range xsd:decimal .
-
-
-###  https://ul.edu.lb/kr/scm#totalImportUsd
-ul:totalImportUsd rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  rdfs:domain ul:Country ;
-                  rdfs:range xsd:decimal .
-
-
-###  https://ul.edu.lb/kr/scm#tradeValueUsd
 ul:tradeValueUsd rdf:type owl:DatatypeProperty ,
                           owl:FunctionalProperty ;
                  rdfs:domain ul:TradeObservation ;
                  rdfs:range xsd:decimal .
 
-
-###  https://ul.edu.lb/kr/scm#year
-ul:year rdf:type owl:DatatypeProperty ,
+# --- Country Identification & Profile Properties ---
+ul:name rdf:type owl:DatatypeProperty ,
                  owl:FunctionalProperty ;
-        rdfs:domain ul:TradeObservation ;
-        rdfs:range xsd:integer .
+        rdfs:domain ul:Country ;
+        rdfs:range xsd:string .
+
+ul:isoCode rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain ul:Country ;
+           rdfs:range xsd:string .
+
+ul:totalExportUsd rdf:type owl:DatatypeProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain ul:Country ;
+                  rdfs:range xsd:decimal .
+
+ul:totalImportUsd rdf:type owl:DatatypeProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain ul:Country ;
+                  rdfs:range xsd:decimal .
+
+ul:netTradeBalanceUsd rdf:type owl:DatatypeProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:domain ul:Country ;
+                      rdfs:range xsd:decimal .
+
+ul:strategicRole rdf:type owl:DatatypeProperty ;
+                 rdfs:domain ul:Country ;
+                 rdfs:range xsd:string .
+
+# --- Tier Properties ---
+ul:categoryName rdf:type owl:DatatypeProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain ul:Tier ;
+                rdfs:range xsd:string .
+
+ul:strategicBottleneck rdf:type owl:DatatypeProperty ;
+                       rdfs:domain ul:Tier ;
+                       rdfs:range xsd:string .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  https://ul.edu.lb/kr/scm#BalancedCountry
-ul:BalancedCountry rdf:type owl:Class ;
-                   rdfs:subClassOf ul:Country ;
-                   rdfs:comment "Net trade balance of exactly zero." .
-
-
-###  https://ul.edu.lb/kr/scm#Country
 ul:Country rdf:type owl:Class .
 
-
-###  https://ul.edu.lb/kr/scm#DeficitCountry
-ul:DeficitCountry rdf:type owl:Class ;
-                  rdfs:subClassOf ul:Country ;
-                  rdfs:comment "Imports more than it exports (negative net trade balance)." .
-
-
-###  https://ul.edu.lb/kr/scm#SurplusCountry
-ul:SurplusCountry rdf:type owl:Class ;
-                  rdfs:subClassOf ul:Country ;
-                  rdfs:comment "Exports more than it imports (positive net trade balance)." .
-
-
-###  https://ul.edu.lb/kr/scm#Tier
 ul:Tier rdf:type owl:Class .
 
-
-###  https://ul.edu.lb/kr/scm#TradeObservation
 ul:TradeObservation rdf:type owl:Class ;
                     rdfs:subClassOf [ rdf:type owl:Restriction ;
                                       owl:onProperty ul:exportedBy ;
-                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                      owl:onClass ul:Country
+                                      owl:onClass ul:Country ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty ul:hasTier ;
-                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                      owl:onClass ul:Tier
+                                      owl:onClass ul:Tier ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty ul:importedBy ;
-                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                      owl:onClass ul:Country
-                                    ] ;
-                    rdfs:comment "One country exporting one tier to another country in one year." .
+                                      owl:onClass ul:Country ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                    ] .
+
+ul:SurplusCountry rdf:type owl:Class ;
+                  rdfs:subClassOf ul:Country .
+
+ul:DeficitCountry rdf:type owl:Class ;
+                  rdfs:subClassOf ul:Country .
+
+ul:BalancedCountry rdf:type owl:Class ;
+                   rdfs:subClassOf ul:Country .
 
 
 #################################################################
-#    Individuals
+#    Disjoint Rules
 #################################################################
-
-###  https://ul.edu.lb/kr/id/tier/Tier_1_Equipment
-<https://ul.edu.lb/kr/id/tier/Tier_1_Equipment> rdf:type owl:NamedIndividual ;
-                                                ul:feeds <https://ul.edu.lb/kr/id/tier/Tier_2_Wafers> .
-
-
-###  https://ul.edu.lb/kr/id/tier/Tier_2_Wafers
-<https://ul.edu.lb/kr/id/tier/Tier_2_Wafers> rdf:type owl:NamedIndividual ;
-                                             ul:feeds <https://ul.edu.lb/kr/id/tier/Tier_3A_Logic_Processors> ,
-                                                      <https://ul.edu.lb/kr/id/tier/Tier_3B_Memory> ,
-                                                      <https://ul.edu.lb/kr/id/tier/Tier_3C_Other_ICs> .
-
-
-###  https://ul.edu.lb/kr/id/tier/Tier_3A_Logic_Processors
-<https://ul.edu.lb/kr/id/tier/Tier_3A_Logic_Processors> rdf:type owl:NamedIndividual .
-
-
-###  https://ul.edu.lb/kr/id/tier/Tier_3B_Memory
-<https://ul.edu.lb/kr/id/tier/Tier_3B_Memory> rdf:type owl:NamedIndividual .
-
-
-###  https://ul.edu.lb/kr/id/tier/Tier_3C_Other_ICs
-<https://ul.edu.lb/kr/id/tier/Tier_3C_Other_ICs> rdf:type owl:NamedIndividual .
-
-
-#################################################################
-#    General axioms
-#################################################################
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( ul:BalancedCountry
-                ul:DeficitCountry
-                ul:SurplusCountry
-              )
-] .
-
 
 [ rdf:type owl:AllDisjointClasses ;
   owl:members ( ul:Country
@@ -211,5 +133,9 @@ ul:TradeObservation rdf:type owl:Class ;
               )
 ] .
 
-
-###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( ul:BalancedCountry
+                ul:DeficitCountry
+                ul:SurplusCountry
+              )
+] .
