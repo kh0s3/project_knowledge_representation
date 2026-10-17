@@ -1,0 +1,38 @@
+# SHACL gate for the semiconductor knowledge graph.
+# Violations fail the check; warnings are reported but do not block it.
+
+name: SHACL gate
+
+on:
+  push:
+    paths:
+      - "part-03-RDF/semiconductor-knowledge-graph.nt"
+      - "part-04-ontology/**"
+      - "part-05-SHACL/**"
+      - "requirement/requirements.txt"
+      - ".github/workflows/shacl-gate.yml"
+  pull_request:
+    paths:
+      - "part-03-RDF/semiconductor-knowledge-graph.nt"
+      - "part-04-ontology/**"
+      - "part-05-SHACL/**"
+      - "requirement/requirements.txt"
+      - ".github/workflows/shacl-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install SHACL validation dependencies
+        run: python -m pip install pyshacl==0.40.1 rdflib==7.6.0
+      - name: Validate the semiconductor graph
+        run: python part-05-SHACL/validate_graph.py

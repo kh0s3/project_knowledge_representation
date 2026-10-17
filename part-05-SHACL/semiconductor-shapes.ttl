@@ -1,0 +1,252 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ul:   <https://ul.edu.lb/kr/scm#> .
+@prefix uls:  <https://ul.edu.lb/kr/shapes/semiconductor#> .
+
+<https://ul.edu.lb/kr/shapes/semiconductor> a owl:Ontology ;
+    rdfs:label "Semiconductor trade graph SHACL shapes" ;
+    sh:declare [
+        sh:prefix "ul" ;
+        sh:namespace "https://ul.edu.lb/kr/scm#"^^xsd:anyURI
+    ] .
+
+uls:TradeObservationShape
+    a sh:NodeShape ;
+    rdfs:label "Trade observation integrity" ;
+    sh:targetClass ul:TradeObservation ;
+    sh:property [
+        sh:path ul:exportedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class ul:Country ;
+        sh:message "A trade observation must have exactly one exporter that is a country."
+    ] ;
+    sh:property [
+        sh:path ul:importedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class ul:Country ;
+        sh:message "A trade observation must have exactly one importer that is a country."
+    ] ;
+    sh:property [
+        sh:path ul:hasTier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class ul:Tier ;
+        sh:message "A trade observation must refer to exactly one known supply-chain tier."
+    ] ;
+    sh:property [
+        sh:path ul:year ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 2020 ;
+        sh:maxInclusive 2025 ;
+        sh:message "A trade observation must have one integer year from 2020 through 2025."
+    ] ;
+    sh:property [
+        sh:path ul:tradeValueUsd ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minExclusive 0 ;
+        sh:message "A trade observation must have exactly one positive decimal USD value."
+    ] ;
+    sh:sparql [
+        sh:message "The exporter and importer of a trade observation must be different countries." ;
+        sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this ul:exportedBy ?country ;
+                      ul:importedBy ?country .
+            }
+        """
+    ] .
+
+uls:CountryShape
+    a sh:NodeShape ;
+    rdfs:label "Country ontology properties" ;
+    sh:targetClass ul:Country ;
+    sh:property [
+        sh:path ul:isoCode ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A country may have at most one string ISO code."
+    ] ;
+    sh:property [
+        sh:path ul:name ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A country may have at most one string name."
+    ] .
+
+uls:CoreClassDisjointnessShape
+    a sh:NodeShape ;
+    rdfs:label "Disjoint country, tier, and observation classes" ;
+    sh:targetSubjectsOf rdf:type ;
+    sh:sparql [
+        sh:message "A node cannot be both a country, a tier, and/or a trade observation." ;
+        sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+        sh:select """
+            SELECT $this WHERE {
+                {
+                    $this a ul:Country, ul:Tier .
+                } UNION {
+                    $this a ul:Country, ul:TradeObservation .
+                } UNION {
+                    $this a ul:Tier, ul:TradeObservation .
+                }
+            }
+        """
+    ] .
+
+uls:CountryProfileShape
+    a sh:NodeShape ;
+    rdfs:label "Country profile completeness" ;
+    sh:targetSubjectsOf ul:netTradeBalanceUsd ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue ul:Country ;
+        sh:message "A country profile must be typed as a country."
+    ] ;
+    sh:property [
+        sh:path ul:netTradeBalanceUsd ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "A country profile must have exactly one decimal net trade balance."
+    ] ;
+    sh:property [
+        sh:path ul:totalExportUsd ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:message "A country profile must have one non-negative decimal total export value."
+    ] ;
+    sh:property [
+        sh:path ul:totalImportUsd ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:message "A country profile must have one non-negative decimal total import value."
+    ] ;
+    sh:property [
+        sh:path ul:strategicRole ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A country profile must have a string source strategic-role label."
+    ] ;
+    sh:sparql [
+        sh:message "The country subclass must agree with the sign of its net trade balance." ;
+        sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+        sh:select """
+            SELECT $this ?balance WHERE {
+                $this ul:netTradeBalanceUsd ?balance .
+                OPTIONAL {
+                    $this a ?surplus .
+                    FILTER (?surplus = ul:SurplusCountry)
+                }
+                OPTIONAL {
+                    $this a ?deficit .
+                    FILTER (?deficit = ul:DeficitCountry)
+                }
+                OPTIONAL {
+                    $this a ?balanced .
+                    FILTER (?balanced = ul:BalancedCountry)
+                }
+                FILTER (
+                    (?balance > 0 &&
+                        (!BOUND(?surplus) || BOUND(?deficit) || BOUND(?balanced))) ||
+                    (?balance < 0 &&
+                        (!BOUND(?deficit) || BOUND(?surplus) || BOUND(?balanced))) ||
+                    (?balance = 0 &&
+                        (!BOUND(?balanced) || BOUND(?surplus) || BOUND(?deficit)))
+                )
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The country cannot have more than one of the disjoint balance subclasses." ;
+        sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+        sh:select """
+            SELECT $this WHERE {
+                {
+                    $this a ul:SurplusCountry, ul:DeficitCountry .
+                } UNION {
+                    $this a ul:SurplusCountry, ul:BalancedCountry .
+                } UNION {
+                    $this a ul:DeficitCountry, ul:BalancedCountry .
+                }
+            }
+        """
+    ] .
+
+uls:CountryNameShape
+    a sh:NodeShape ;
+    rdfs:label "Country profile has a display name" ;
+    sh:targetSubjectsOf ul:netTradeBalanceUsd ;
+    sh:property [
+        sh:path ul:name ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Country profile has no display name; investigate the source-to-trade country-name match."
+    ] .
+
+uls:CountryRoleConsistencyShape
+    a sh:NodeShape ;
+    rdfs:label "Country role agrees with numeric balance" ;
+    sh:targetSubjectsOf ul:netTradeBalanceUsd ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        sh:message "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+        sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+        sh:select """
+            SELECT $this ?balance ?role WHERE {
+                $this ul:netTradeBalanceUsd ?balance ;
+                      ul:strategicRole ?role .
+                FILTER (
+                    (?balance < 0 &&
+                        CONTAINS(LCASE(STR(?role)), "exporter")) ||
+                    (?balance > 0 &&
+                        CONTAINS(LCASE(STR(?role)), "importer"))
+                )
+            }
+        """
+    ] .
+
+uls:TierShape
+    a sh:NodeShape ;
+    rdfs:label "Supply-chain tier descriptions" ;
+    sh:targetClass ul:Tier ;
+    sh:property [
+        sh:path ul:categoryName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Each tier must have exactly one category name."
+    ] ;
+    sh:property [
+        sh:path ul:strategicBottleneck ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Each tier must have at least one string strategic bottleneck description."
+    ] ;
+    sh:property [
+        sh:path ul:feeds ;
+        sh:class ul:Tier ;
+        sh:message "Every feeds link must point to a known supply-chain tier."
+    ] ;
+    sh:sparql [
+        sh:message "The tier feeds hierarchy must not contain a cycle." ;
+        sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this ul:feeds+ $this .
+            }
+        """
+    ] .
