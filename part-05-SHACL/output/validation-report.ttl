@@ -1,0 +1,434 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ul: <https://ul.edu.lb/kr/scm#> .
+@prefix uls: <https://ul.edu.lb/kr/shapes/semiconductor#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Faroe%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Faroe%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/China> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/China> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Dem.%20People%27s%20Rep.%20of%20Korea> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Dem.%20People%27s%20Rep.%20of%20Korea> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Dominica> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Dominica> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Philippines> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Philippines> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Saint%20Helena> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Saint%20Helena> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Costa%20Rica> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Costa%20Rica> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/FS%20Micronesia> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/FS%20Micronesia> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Tuvalu> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Tuvalu> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Holy%20See%20%28Vatican%20City%20State%29> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Holy%20See%20%28Vatican%20City%20State%29> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Madagascar> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Madagascar> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Namibia> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Namibia> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Timor-Leste> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Timor-Leste> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Canada> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Canada> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Gambia> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Gambia> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Cocos%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Cocos%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Turks%20and%20Caicos%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Turks%20and%20Caicos%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Yemen> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Yemen> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/N.%20Mariana%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/N.%20Mariana%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Wallis%20and%20Futuna%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Wallis%20and%20Futuna%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Malawi> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Malawi> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Netherlands> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Netherlands> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Naoero> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Naoero> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Mexico> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Mexico> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Samoa> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Samoa> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Mali> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Mali> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Ireland> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Ireland> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Pitcairn> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Pitcairn> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Sao%20Tome%20and%20Principe> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Sao%20Tome%20and%20Principe> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Georgia> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Georgia> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Taiwan%20%28Other%20Asia%20nes%29> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Taiwan%20%28Other%20Asia%20nes%29> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Montserrat> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Montserrat> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/India> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/India> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/T%C3%BCrkiye> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/T%C3%BCrkiye> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Japan> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Japan> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Norfolk%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Norfolk%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Vanuatu> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Vanuatu> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Israel> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Israel> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Christmas%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Christmas%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Falkland%20Isds%20%28Malvinas%29> ;
+            sh:resultMessage "Country profile has no display name; investigate the source-to-trade country-name match." ;
+            sh:resultPath ul:name ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;
+            sh:sourceShape _:ne271b94d13ee4d97bda185a796df7045b18 ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Papua%20New%20Guinea> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Papua%20New%20Guinea> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/State%20of%20Palestine> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/State%20of%20Palestine> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Malta> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Malta> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Niue> ;
+            sh:resultMessage "Country profile has no display name; investigate the source-to-trade country-name match." ;
+            sh:resultPath ul:name ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;
+            sh:sourceShape _:ne271b94d13ee4d97bda185a796df7045b18 ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/South%20Sudan> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/South%20Sudan> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Somalia> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Somalia> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Kiribati> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Kiribati> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Marshall%20Isds> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Marshall%20Isds> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Tajikistan> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Tajikistan> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Morocco> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Morocco> ],
+        [ a sh:ValidationResult ;
+            sh:focusNode <https://ul.edu.lb/kr/id/country/Saint%20Vincent%20and%20the%20Grenadines> ;
+            sh:resultMessage "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraint _:ne271b94d13ee4d97bda185a796df7045b19 ;
+            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+            sh:sourceShape uls:CountryRoleConsistencyShape ;
+            sh:value <https://ul.edu.lb/kr/id/country/Saint%20Vincent%20and%20the%20Grenadines> ] .
+
+_:ne271b94d13ee4d97bda185a796df7045b18 sh:message "Country profile has no display name; investigate the source-to-trade country-name match." ;
+    sh:minCount 1 ;
+    sh:path ul:name ;
+    sh:severity sh:Warning .
+
+_:ne271b94d13ee4d97bda185a796df7045b19 sh:message "The strategic-role label appears inconsistent with the numeric net trade balance; investigate the source label." ;
+    sh:prefixes <https://ul.edu.lb/kr/shapes/semiconductor> ;
+    sh:select """\r
+            SELECT $this ?balance ?role WHERE {\r
+                $this ul:netTradeBalanceUsd ?balance ;\r
+                      ul:strategicRole ?role .\r
+                FILTER (\r
+                    (?balance < 0 &&\r
+                        CONTAINS(LCASE(STR(?role)), "exporter")) ||\r
+                    (?balance > 0 &&\r
+                        CONTAINS(LCASE(STR(?role)), "importer"))\r
+                )\r
+            }\r
+        """ .
+
