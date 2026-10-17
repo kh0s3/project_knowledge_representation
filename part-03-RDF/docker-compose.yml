@@ -13,13 +13,13 @@ services:
   fuseki:
     image: stain/jena-fuseki:5.1.0
     environment:
-      ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD:?Set FUSEKI_ADMIN_PASSWORD in the project .env file}
       FUSEKI_DATASET_1: semiconductor
       TDB: "2"
     ports:
       - "127.0.0.1:3030:3030"
     volumes:
       - fuseki-semiconductor:/fuseki
+      - ./fuseki-shiro.ini:/fuseki/shiro.ini:ro
 
 volumes:
   postgres-semiconductor:

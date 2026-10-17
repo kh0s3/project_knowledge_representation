@@ -28,7 +28,7 @@ The existing `.nt` graph is already materialized. To try Fuseki, you do not
 need to run Python or start PostgreSQL; you only need Docker and the `.nt`
 file.
 
-## 2. Prerequisites and one-time password setup
+## 2. Prerequisites and local no-password access
 
 1. Install and start Docker Desktop. Confirm Docker Compose is available:
 
@@ -38,20 +38,15 @@ file.
    ```
 
 2. Open PowerShell at the repository root (the folder containing
-   `.gitignore`, `.env`, and `part-03-RDF`).
-3. Add this setting to the existing repository-root `.env` file:
+   `.gitignore` and `part-03-RDF`). No Fuseki password or `.env` setting is
+   needed to start the local Fuseki service.
 
-   ```dotenv
-   FUSEKI_ADMIN_PASSWORD=choose-a-strong-private-password
-   ```
-
-   Replace the example with a strong password. Do not commit or share `.env`;
-   it is already excluded by the root `.gitignore`. If the `.env` file does
-   not exist yet, create it in the repository root.
-
-Compose reads this file explicitly in the commands below. The same `.env` can
-also contain `DATABASE_URL` and `LOCAL_PATH_PROJECT`, which are needed only if
-you rebuild the graph from PostgreSQL.
+For this course project, `fuseki-shiro.ini` disables authentication for the
+Fuseki UI and API. Docker Compose binds port 3030 to `127.0.0.1`, so access is
+limited to this computer. Do not change that binding or expose this
+no-authentication service to a network. The repository-root `.env` is only
+needed when you rebuild the RDF graph using PostgreSQL; it may contain
+`DATABASE_URL` and `LOCAL_PATH_PROJECT` for that separate workflow.
 
 ## 3. Get the Fuseki image and start the service
 
@@ -63,37 +58,43 @@ the upstream Fuseki server.
 From the repository root, pre-download the image:
 
 ```powershell
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml pull fuseki
+docker compose -f .\part-03-RDF\docker-compose.yml pull fuseki
 ```
 
 Start Fuseki:
 
 ```powershell
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml up -d fuseki
+docker compose -f .\part-03-RDF\docker-compose.yml up -d fuseki
 ```
 
 Check the container status and startup logs:
 
 ```powershell
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml ps
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml logs fuseki
+docker compose -f .\part-03-RDF\docker-compose.yml ps
+docker compose -f .\part-03-RDF\docker-compose.yml logs fuseki
 ```
 
 The service uses TDB2 storage in the named Docker volume
 `fuseki-semiconductor` and exposes Fuseki only on this computer at port 3030.
-PostgreSQL is not started by the command above and is not needed to query the
-already-generated graph.
+The mounted `fuseki-shiro.ini` disables authentication; the service must remain
+bound to localhost. PostgreSQL is not started by the command above and is not
+needed to query the already-generated graph.
+
+If Fuseki was already running before this no-password setup, recreate its
+container to apply the new configuration (this preserves the named data volume):
+
+```powershell
+docker compose -f .\part-03-RDF\docker-compose.yml up -d --force-recreate fuseki
+```
 
 ## 4. Open Fuseki and load the graph
 
 1. Browse to <http://localhost:3030>.
-2. Sign in with username `admin` and the password from
-   `FUSEKI_ADMIN_PASSWORD` in `.env`.
-3. Select the `semiconductor` dataset.
-4. Open its upload page/control and choose:
+2. No sign-in is required. Select the `semiconductor` dataset.
+3. Open its upload page/control and choose:
    `part-03-RDF/semiconductor-knowledge-graph.nt`.
-5. Upload the file as N-Triples (`.nt`) to the **default graph**.
-6. Wait for the upload to finish before running queries.
+4. Upload the file as N-Triples (`.nt`) to the **default graph**.
+5. Wait for the upload to finish before running queries.
 
 Do not upload `trade-mapping.ttl` as the data graph. It is a database mapping
 recipe, not the materialized trade observations. Do not separately upload
@@ -157,11 +158,11 @@ Run it only when you intend to reload those tables from the source CSV files.
 1. In the repository-root `.env`, confirm `DATABASE_URL` points to the
    PostgreSQL service defined in `part-03-RDF/docker-compose.yml` and
    `LOCAL_PATH_PROJECT` points to the repository root containing `dataset`.
-   Keep `FUSEKI_ADMIN_PASSWORD` there as well.
+   No Fuseki password variable is used.
 2. From the repository root, start PostgreSQL:
 
    ```powershell
-   docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml up -d postgres
+   docker compose -f .\part-03-RDF\docker-compose.yml up -d postgres
    ```
 
 3. Load the CSV files into PostgreSQL. Confirm the expected CSV files exist
@@ -208,7 +209,7 @@ needed; regenerate the graph directly.
 From the repository root, stop the containers:
 
 ```powershell
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml down
+docker compose -f .\part-03-RDF\docker-compose.yml down
 ```
 
 This stops and removes the containers but preserves the named volumes.
@@ -217,14 +218,14 @@ Fuseki's loaded graph survives normal container stop/start operations.
 To stop only Fuseki without stopping PostgreSQL:
 
 ```powershell
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml stop fuseki
+docker compose -f .\part-03-RDF\docker-compose.yml stop fuseki
 ```
 
 To delete both Compose volumes (including the Fuseki graph and PostgreSQL
 data), run:
 
 ```powershell
-docker compose --env-file .env -f .\part-03-RDF\docker-compose.yml down --volumes
+docker compose -f .\part-03-RDF\docker-compose.yml down --volumes
 ```
 
 This last command is destructive. Do not run it unless you intend to erase
