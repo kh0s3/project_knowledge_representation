@@ -27,3 +27,4 @@ torch==2.8.0
 torch-geometric==2.8.0.post1
 pykeen==1.11.1
 scikit-learn==1.7.2
+pyvis==0.3.2
