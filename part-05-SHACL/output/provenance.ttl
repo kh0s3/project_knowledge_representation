@@ -1,0 +1,38 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ul.edu.lb/kr/id/semiconductor/entity/validation-report/ba3cd6e4027e6852940c412c376aaa7bd5d89eb7563a9f72f41b92b22a94b38c> a prov:Entity ;
+    rdfs:label "SHACL validation report" ;
+    dcterms:format "ttl" ;
+    dcterms:identifier "sha256:ba3cd6e4027e6852940c412c376aaa7bd5d89eb7563a9f72f41b92b22a94b38c" ;
+    dcterms:title "validation-report.ttl" ;
+    prov:wasDerivedFrom <https://ul.edu.lb/kr/id/semiconductor/entity/data-graph/63ec124a463f2400c2d3e3b5cb041c6a3185c1280847d256da842e24bed21f51>,
+        <https://ul.edu.lb/kr/id/semiconductor/entity/shapes/4c7941dfb020528fcb2277867aecf2a3aaf09ffb7e4a9b96f306e98d2954c3a3> ;
+    prov:wasGeneratedBy <https://ul.edu.lb/kr/id/semiconductor/activity/shacl-validation-20261017T214807Z> .
+
+<https://ul.edu.lb/kr/id/semiconductor/activity/shacl-validation-20261017T214807Z> a prov:Activity ;
+    rdfs:label "SHACL validation of the semiconductor trade graph" ;
+    prov:endedAtTime "2026-10-17T21:48:07+00:00"^^xsd:dateTime ;
+    prov:startedAtTime "2026-10-17T21:48:07+00:00"^^xsd:dateTime ;
+    prov:used <https://ul.edu.lb/kr/id/semiconductor/entity/data-graph/63ec124a463f2400c2d3e3b5cb041c6a3185c1280847d256da842e24bed21f51>,
+        <https://ul.edu.lb/kr/id/semiconductor/entity/shapes/4c7941dfb020528fcb2277867aecf2a3aaf09ffb7e4a9b96f306e98d2954c3a3> ;
+    prov:wasAssociatedWith <https://ul.edu.lb/kr/id/semiconductor/software/validate_graph.py> .
+
+<https://ul.edu.lb/kr/id/semiconductor/software/validate_graph.py> a prov:SoftwareAgent ;
+    rdfs:label "Part 5 SHACL validation script" ;
+    dcterms:identifier "pySHACL 0.40.1" .
+
+<https://ul.edu.lb/kr/id/semiconductor/entity/data-graph/63ec124a463f2400c2d3e3b5cb041c6a3185c1280847d256da842e24bed21f51> a prov:Entity ;
+    rdfs:label "N-Triples RDF graph" ;
+    dcterms:format "nt" ;
+    dcterms:identifier "sha256:63ec124a463f2400c2d3e3b5cb041c6a3185c1280847d256da842e24bed21f51" ;
+    dcterms:title "semiconductor-knowledge-graph.nt" .
+
+<https://ul.edu.lb/kr/id/semiconductor/entity/shapes/4c7941dfb020528fcb2277867aecf2a3aaf09ffb7e4a9b96f306e98d2954c3a3> a prov:Entity ;
+    rdfs:label "SHACL shapes" ;
+    dcterms:format "ttl" ;
+    dcterms:identifier "sha256:4c7941dfb020528fcb2277867aecf2a3aaf09ffb7e4a9b96f306e98d2954c3a3" ;
+    dcterms:title "semiconductor-shapes.ttl" .
+
