@@ -1,0 +1,62 @@
+[
+ {
+  "id": "Q1",
+  "question": "How many countries are there in the graph?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT (COUNT(DISTINCT ?c) AS ?n)\nWHERE { ?c a ul:Country }"
+ },
+ {
+  "id": "Q2",
+  "question": "Which country exports the most memory chips, and how much?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT ?country (SUM(?v) AS ?totalUsd)\nWHERE { ?t ul:exportedBy ?c ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_3B_Memory> ; ul:tradeValueUsd ?v . ?c ul:name ?country }\nGROUP BY ?country ORDER BY DESC(?totalUsd) LIMIT 1"
+ },
+ {
+  "id": "Q3",
+  "question": "How many different countries import logic processors?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT (COUNT(DISTINCT ?c) AS ?n)\nWHERE { ?t ul:importedBy ?c ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_3A_Logic_Processors> }"
+ },
+ {
+  "id": "Q4",
+  "question": "What is the total value of all wafer trade?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT (SUM(?v) AS ?totalUsd)\nWHERE { ?t ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_2_Wafers> ; ul:tradeValueUsd ?v }"
+ },
+ {
+  "id": "Q5",
+  "question": "Which tiers does the wafer tier feed directly?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT ?tier\nWHERE { <https://ul.edu.lb/kr/id/tier/Tier_2_Wafers> ul:feeds ?d . BIND(REPLACE(STR(?d), \"^.*/\", \"\") AS ?tier) }"
+ },
+ {
+  "id": "Q6",
+  "question": "Which surplus countries have a net trade balance above 1 billion USD?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT ?country ?balance\nWHERE {\n  ?c a ul:SurplusCountry ; ul:name ?country ; ul:netTradeBalanceUsd ?balance .\n  FILTER(?balance > 1000000000)\n}\nORDER BY DESC(?balance)"
+ },
+ {
+  "id": "Q7",
+  "question": "What is the strategic bottleneck of the equipment tier?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT ?bottleneck\nWHERE { <https://ul.edu.lb/kr/id/tier/Tier_1_Equipment> ul:strategicBottleneck ?bottleneck }"
+ },
+ {
+  "id": "Q8",
+  "question": "How much did China export in total?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT (SUM(?v) AS ?totalUsd)\nWHERE { ?t ul:exportedBy ?c ; ul:tradeValueUsd ?v . ?c ul:name ?n . FILTER(LCASE(STR(?n)) = \"china\") }"
+ },
+ {
+  "id": "Q9",
+  "question": "Which country imports the most memory chips from China?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT ?country (SUM(?v) AS ?totalUsd)\nWHERE {\n  ?t ul:exportedBy ?e ; ul:importedBy ?i ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_3B_Memory> ; ul:tradeValueUsd ?v .\n  ?e ul:name ?en . ?i ul:name ?country .\n  FILTER(LCASE(STR(?en)) = \"china\")\n}\nGROUP BY ?country ORDER BY DESC(?totalUsd) LIMIT 1"
+ },
+ {
+  "id": "Q10",
+  "question": "Which tier has the largest total trade value?",
+  "gold": "PREFIX ul: <https://ul.edu.lb/kr/scm#>\nSELECT ?tier (SUM(?v) AS ?totalUsd)\nWHERE { ?t ul:hasTier ?h ; ul:tradeValueUsd ?v . BIND(REPLACE(STR(?h), \"^.*/\", \"\") AS ?tier) }\nGROUP BY ?tier ORDER BY DESC(?totalUsd) LIMIT 1"
+ },
+ {
+  "id": "Q11",
+  "question": "Which company makes the most expensive chip?",
+  "refuse": true
+ },
+ {
+  "id": "Q12",
+  "question": "What will the total semiconductor trade be in 2030?",
+  "refuse": true
+ }
+]

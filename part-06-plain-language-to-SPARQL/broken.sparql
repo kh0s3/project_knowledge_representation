@@ -1,0 +1,3 @@
+PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT (COUNT(?t) AS ?n)
+WHERE { ?t ul:shippedBy ?c . ?c ul:name "China" }

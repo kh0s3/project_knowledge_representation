@@ -1,0 +1,114 @@
+@prefix ul: <https://ul.edu.lb/kr/scm#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix void-ext: <http://ldf.fi/void-ext#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ul.edu.lb/kr/semiconductor/> a void:Dataset ;
+    void:classPartition [ void:class ul:DeficitCountry ;
+            void:entities 212 ;
+            void:propertyPartition [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:netTradeBalanceUsd ;
+                    void:triples 212 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalImportUsd ;
+                    void:triples 212 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalExportUsd ;
+                    void:triples 212 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:isoCode ;
+                    void:triples 212 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:name ;
+                    void:triples 212 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:strategicRole ;
+                    void:triples 212 ] ],
+        [ void:class ul:BalancedCountry ;
+            void:entities 2 ;
+            void:propertyPartition [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:netTradeBalanceUsd ;
+                    void:triples 2 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:strategicRole ;
+                    void:triples 2 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalImportUsd ;
+                    void:triples 2 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalExportUsd ;
+                    void:triples 2 ] ],
+        [ void:class ul:TradeObservation ;
+            void:entities 7421 ;
+            void:propertyPartition [ void-ext:objectClassPartition [ void:class ul:Country ],
+                        [ void:class ul:SurplusCountry ],
+                        [ void:class ul:DeficitCountry ] ;
+                    void:property ul:importedBy ;
+                    void:triples 14842 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:integer ] ;
+                    void:property ul:year ;
+                    void:triples 7421 ],
+                [ void-ext:objectClassPartition [ void:class ul:Tier ] ;
+                    void:property ul:hasTier ;
+                    void:triples 7421 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:tradeValueUsd ;
+                    void:triples 7421 ],
+                [ void-ext:objectClassPartition [ void:class ul:Country ],
+                        [ void:class ul:DeficitCountry ],
+                        [ void:class ul:SurplusCountry ] ;
+                    void:property ul:exportedBy ;
+                    void:triples 14842 ] ],
+        [ void:class ul:Country ;
+            void:entities 227 ;
+            void:propertyPartition [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:name ;
+                    void:triples 225 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalExportUsd ;
+                    void:triples 227 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:isoCode ;
+                    void:triples 225 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:netTradeBalanceUsd ;
+                    void:triples 227 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalImportUsd ;
+                    void:triples 227 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:strategicRole ;
+                    void:triples 227 ] ],
+        [ void:class ul:Tier ;
+            void:entities 5 ;
+            void:propertyPartition [ void-ext:objectClassPartition [ void:class ul:Tier ] ;
+                    void:property ul:feeds ;
+                    void:triples 4 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:categoryName ;
+                    void:triples 5 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:strategicBottleneck ;
+                    void:triples 5 ] ],
+        [ void:class ul:SurplusCountry ;
+            void:entities 13 ;
+            void:propertyPartition [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:strategicRole ;
+                    void:triples 13 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:name ;
+                    void:triples 13 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:netTradeBalanceUsd ;
+                    void:triples 13 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalImportUsd ;
+                    void:triples 13 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:string ] ;
+                    void:property ul:isoCode ;
+                    void:triples 13 ],
+                [ void-ext:datatypePartition [ void-ext:datatype xsd:decimal ] ;
+                    void:property ul:totalExportUsd ;
+                    void:triples 13 ] ] ;
+    void:triples 46456 .
+

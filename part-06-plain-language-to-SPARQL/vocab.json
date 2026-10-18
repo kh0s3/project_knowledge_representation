@@ -1,0 +1,49 @@
+{
+ "tiers": [
+  {
+   "id": "Tier_1_Equipment",
+   "name": "Semiconductor manufacturing machinery & photolithography (ASML/EUV)"
+  },
+  {
+   "id": "Tier_2_Wafers",
+   "name": "Chemical compounds doped for electronics; silicon wafers"
+  },
+  {
+   "id": "Tier_3A_Logic_Processors",
+   "name": "Processors and controllers, whether or not combined with memories (CPUs/GPUs)"
+  },
+  {
+   "id": "Tier_3B_Memory",
+   "name": "Electronic integrated circuits as memories (DRAM, NAND, HBM)"
+  },
+  {
+   "id": "Tier_3C_Other_ICs",
+   "name": "Other electronic integrated circuits (Analog, PMICs, Mixed-signal)"
+  }
+ ],
+ "years": [
+  2024
+ ],
+ "exporters": [
+  "Austria",
+  "Canada",
+  "China",
+  "France",
+  "Germany",
+  "India",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Japan",
+  "Malaysia",
+  "Mexico",
+  "Netherlands",
+  "Philippines",
+  "Rep. of Korea",
+  "Singapore",
+  "Thailand",
+  "Türkiye",
+  "USA",
+  "United Kingdom"
+ ]
+}

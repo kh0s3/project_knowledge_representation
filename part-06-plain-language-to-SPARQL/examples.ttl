@@ -1,0 +1,86 @@
+@prefix ex: <https://ul.edu.lb/kr/semiconductor/examples/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ex:1 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "How many trade records are in the graph?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT (COUNT(?t) AS ?n)
+WHERE { ?t a ul:TradeObservation }""" .
+
+ex:2 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Which countries export Tier 1 equipment, and how much in total?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT ?country (SUM(?v) AS ?totalUsd)
+WHERE {
+  ?t ul:exportedBy ?c ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_1_Equipment> ; ul:tradeValueUsd ?v .
+  ?c ul:name ?country .
+}
+GROUP BY ?country
+ORDER BY DESC(?totalUsd)""" .
+
+ex:3 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "What is the total value of memory chip trade each year?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT ?year (SUM(?v) AS ?totalUsd)
+WHERE { ?t ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_3B_Memory> ; ul:year ?year ; ul:tradeValueUsd ?v . }
+GROUP BY ?year
+ORDER BY ?year""" .
+
+ex:4 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Who are the top 5 importers of logic processors?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT ?country (SUM(?v) AS ?totalUsd)
+WHERE {
+  ?t ul:importedBy ?c ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_3A_Logic_Processors> ; ul:tradeValueUsd ?v .
+  ?c ul:name ?country .
+}
+GROUP BY ?country
+ORDER BY DESC(?totalUsd)
+LIMIT 5""" .
+
+ex:5 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "What is the total value of trade from China to Japan?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT (SUM(?v) AS ?totalUsd)
+WHERE {
+  ?t ul:exportedBy ?a ; ul:importedBy ?b ; ul:tradeValueUsd ?v .
+  ?a ul:name ?an . ?b ul:name ?bn .
+  FILTER(LCASE(STR(?an)) = "china" && LCASE(STR(?bn)) = "japan")
+}""" .
+
+ex:6 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Which countries both import and export Tier 2 wafers?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT DISTINCT ?country
+WHERE {
+  ?out ul:exportedBy ?c ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_2_Wafers> .
+  ?in  ul:importedBy ?c ; ul:hasTier <https://ul.edu.lb/kr/id/tier/Tier_2_Wafers> .
+  ?c ul:name ?country .
+}
+ORDER BY ?country""" .
+
+ex:7 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Which tiers depend on Tier 1 equipment, directly or indirectly?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT DISTINCT ?tier
+WHERE {
+  <https://ul.edu.lb/kr/id/tier/Tier_1_Equipment> ul:feeds+ ?d .
+  BIND(REPLACE(STR(?d), "^.*/", "") AS ?tier)
+}""" .
+
+ex:8 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "What is the strategic bottleneck of the memory tier?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT ?bottleneck
+WHERE { <https://ul.edu.lb/kr/id/tier/Tier_3B_Memory> ul:strategicBottleneck ?bottleneck }""" .
+
+ex:9 a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Which countries have a trade deficit?" ;
+    sh:select """PREFIX ul: <https://ul.edu.lb/kr/scm#>
+SELECT ?country ?balance
+WHERE {
+  ?c a ul:DeficitCountry ; ul:name ?country ; ul:netTradeBalanceUsd ?balance .
+}
+ORDER BY ?balance
+LIMIT 50""" .
