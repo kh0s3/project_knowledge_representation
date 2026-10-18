@@ -65,6 +65,9 @@ Start Fuseki:
 
 ```powershell
 docker compose -f .\part-03-RDF\docker-compose.yml up -d fuseki
+or
+docker-compose --env-file ../.env up -d fuseki
+depends on the file location of the terminsal
 ```
 
 Check the container status and startup logs:
