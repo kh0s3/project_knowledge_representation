@@ -1,10 +1,10 @@
-# Part 05: plain English to SPARQL (the access layer)
+# Part 06: plain English to SPARQL (the access layer)
 
 Someone who does not know SPARQL types a question in English. The access layer turns it into a
 SPARQL query for the semiconductor trade graph, checks the query, and (if you want) runs it.
 
 ## The idea in four steps
-1. **Describe the graph** (`void.ttl`): classes, properties and what they point to, read from the graph itself.
+1. **Describe the graph** (`void.ttl`): classes, propertgit ies and what they point to, read from the graph itself.
 2. **Show examples** (`examples.json`): 9 questions, each with its correct query. 3 are picked per question.
 3. **Check the answer**: the query must parse and use only names that exist. If not, the problems go back to the model (max 2 repairs).
 4. **Refuse** when the graph cannot answer (prices, forecasts, companies).
