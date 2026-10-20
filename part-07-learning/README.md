@@ -1,4 +1,4 @@
-# Part 6: Learning Over the Semiconductor Knowledge Graph
+# Part 7: Learning Over the Semiconductor Knowledge Graph
 
 Predict missing trade relationships in the semiconductor knowledge graph using link prediction with the TransE model.
 
@@ -14,23 +14,27 @@ The model learns from the trade graph and predicts likely answers ranked by conf
 ## Setup
 
 ```powershell
-cd part-06-learning
-pip install torch torch_geometric pykeEN numpy pandas
+cd part-07-learning
+pip install torch torch_geometric pykeen numpy pandas flask
 ```
 
 ## How to Run
 
-### Step 1: Build the graph
+### Option A: Web UI (Recommended)
+
+Start the web interface:
 
 ```powershell
-python build_graph.py --split random --test_ratio 0.1 --seed 42
+python ui.py
 ```
 
-This creates `data/semiconductor-graph.pt` and `data/hidden-edges.pt`.
+Then open `http://localhost:5000` in your browser. The UI allows you to:
+- Select query type Q1, Q2, or Q3
+- Enter parameters via form fields
+- View results with confidence percentages
 
-### Step 2: Query the model
+### Option B: Command Line - Interactive Mode
 
-**Option A: Interactive mode** (recommended)
 ```powershell
 python link_prediction.py --query
 ```
@@ -43,7 +47,8 @@ Q3 TWN Tier_2_Wafers     # Where does Taiwan export Wafers to?
 quit              # Exit
 ```
 
-**Option B: Batch evaluation** (evaluates all 3 query patterns)
+### Option C: Batch Evaluation
+
 ```powershell
 python link_prediction.py
 ```
@@ -65,6 +70,17 @@ python link_prediction.py
 - Tier_3B_Memory
 - Tier_3C_Other_ICs
 
+## Docker
+
+Build and run with Docker:
+
+```powershell
+docker build -t part7-learning .
+docker run -p 5000:5000 part7-learning
+```
+
+Then open `http://localhost:5000` in your browser.
+
 ## Output
 
 Results show percentages (softmax confidence) for top candidates:
@@ -81,27 +97,6 @@ Model ranking:
   5. Tier 2 Wafers (9.6%)
 ```
 
-## Split Modes
-
-Use `--split` to control which edges are hidden for testing:
-
-| Mode | What It Hides | Use Case |
-|------|---------------|----------|
-| `random` | Random 10% of edges | General link prediction |
-| `by_tier` | ALL edges of 1 tier | Test generalization to unseen tier |
-| `by_country` | Edges of some countries | Test generalization to unseen countries |
-
-```powershell
-# Random split (default)
-python build_graph.py --split random
-
-# Hide all Tier_3A_Logic_Processors edges
-python build_graph.py --split by_tier
-
-# Hide edges of 20% of countries
-python build_graph.py --split by_country --test_ratio 0.2
-```
-
 ## Files
 
 | File | Purpose |
@@ -109,8 +104,11 @@ python build_graph.py --split by_country --test_ratio 0.2
 | `build_graph.py` | Builds graph from CSV, hides edges for testing |
 | `link_prediction.py` | TransE model for 3 query patterns |
 | `learning_utils.py` | Split and scoring utilities |
+| `ui.py` | Flask web interface for querying |
+| `templates/index.html` | HTML template for web UI |
 | `data/semiconductor-graph.pt` | Training graph |
 | `data/hidden-edges.pt` | Hidden edges for evaluation |
+| `Dockerfile` | Docker configuration for this part |
 
 ## Evaluation Metrics
 
