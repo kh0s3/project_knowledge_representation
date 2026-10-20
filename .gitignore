@@ -12,3 +12,8 @@ __pycache__/
 
 dataset/*
 !dataset/library/
+
+part-06-plain-language-to-SPARQL/.dockerignore
+part-06-plain-language-to-SPARQL/.env
+
+Presentation.pptx
