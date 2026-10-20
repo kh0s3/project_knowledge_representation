@@ -3,5 +3,12 @@
 .venv/
 .vscode/
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
 dataset/*
 !dataset/library/
