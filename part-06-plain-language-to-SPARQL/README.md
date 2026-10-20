@@ -4,8 +4,8 @@ Someone who does not know SPARQL types a question in English. The access layer t
 SPARQL query for the semiconductor trade graph, checks the query, and (if you want) runs it.
 
 ## The idea in four steps
-1. **Describe the graph** (`void.ttl`): classes, propertgit ies and what they point to, read from the graph itself.
-2. **Show examples** (`examples.json`): 9 questions, each with its correct query. 3 are picked per question.
+1. **Describe the graph** (`void.ttl`): classes, properties and what they point to, read from the graph itself.
+2. **Show examples** (`examples.ttl`, SHACL `sh:SPARQLSelectExecutable` like the lab): 9 questions, each with its correct query. 3 are picked per question.
 3. **Check the answer**: the query must parse and use only names that exist. If not, the problems go back to the model (max 2 repairs).
 4. **Refuse** when the graph cannot answer (prices, forecasts, companies).
 
@@ -25,16 +25,45 @@ SPARQL query for the semiconductor trade graph, checks the query, and (if you wa
 | `python check.py broken.sparql` | finds `ul:shippedBy` is not a property, lists the real ones | no |
 | `python ask.py "Which country exports the most wafers?"` | question, query, rows | yes |
 | `python evaluate.py` | 3 settings (schema / examples / repair), about 25 calls | yes |
+| `python serve.py` | web page and JSON endpoint, see below | yes |
+
+Web page: run `python serve.py`, then open http://127.0.0.1:8000/ in a browser (stop with Ctrl+C).
+Type a question, press Ask, and the page shows the answer as a table plus the SPARQL the model wrote.
+The graph loads on the first question, so that one is slower.
+
+The same server also has a JSON endpoint:
+- `/api/ask?question=...`: JSON with `status`, `query`, `vars`, `rows`.
+
+The server only listens on your own computer (127.0.0.1) and uses your Gemini key, so don't open it to other people without thinking about that.
 
 ## Files
 - `config.py`: paths and settings. `access_layer.py`: the whole pipeline.
-- `make_void.py`, `show_prompt.py`, `ask.py`, `check.py`, `evaluate.py`, `serve.py`: the runnable steps.
-- `examples.json`: worked examples. `eval_questions.json`: 12 test questions (10 answerable with a gold query, 2 that must be refused).
+- `make_void.py`, `show_prompt.py`, `ask.py`, `check.py`, `evaluate.py`, `serve.py`: the runnable steps. `index.html`: the web page that `serve.py` shows.
+- `examples.ttl`: worked examples (a question in `rdfs:comment`, its query in `sh:select`). `eval_questions.json`: 12 test questions (10 answerable with a gold query, 2 that must be refused).
 - `broken.sparql`: a query with a wrong property, for `check.py`.
 - `void.ttl`, `vocab.json`, `cache/`, `results/`: created when you run things.
 
 ## Notes
 - Every model answer is cached in `cache/llm_cache.json`. `LLM_MODE=replay` repeats cached answers with no key and no internet, but only for prompts you already ran live.
-- Free tier too slow or 429 errors? Set `LLM_DELAY=8`. Wrong model name? Set `GEMINI_MODEL` to one listed in AI Studio.
+- Free tier too slow or 429 errors? Set `LLM_DELAY=8`. The default model is `gemini-3.8-flash`. Different model? Set `GEMINI_MODEL` to one listed in AI Studio.
 - `eval_questions.json` and two examples use "China" and "Japan". Check `vocab.json` for the exact country names in your data. If a gold query returns nothing, `evaluate.py` warns and skips that question.
 - F1 compares the set of values in the rows, ignoring column order and names.
+
+## Docker (with Fuseki)
+Needs `.env` with your key (see `.env.example`) and the graph files in `../part-03-RDF`.
+
+    docker compose up --build
+
+Then open http://127.0.0.1:8000/ (the question page) or http://127.0.0.1:3030/ (Fuseki itself).
+
+What starts:
+1. **fuseki**: loads `semiconductor-knowledge-graph.nt`, `tier-knowledge.ttl` and `ontology.ttl` (mounted read only)
+   into one read-only dataset at `/semiconductor`. The data is loaded again on every start, so it always matches your files.
+2. **access-layer**: waits until Fuseki answers, builds `void.ttl` from Fuseki on its first start, then serves the web page.
+   It sends its queries to `http://fuseki:3030/semiconductor/sparql`. It holds no graph data.
+
+Notes:
+- The key comes from `.env` at run time and is never copied into the image (`.dockerignore`).
+- `void.ttl`, `vocab.json` and the model cache live in the `state` volume. If you change the graph, run `docker compose down -v` so they are rebuilt.
+- First build downloads Fuseki (Java 21 image, Fuseki 6.1.0). Another version: `docker compose build --build-arg FUSEKI_VERSION=x.y.z`.
+- No Fuseki, one container: `docker compose -f docker-compose.standalone.yml up --build`.

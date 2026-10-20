@@ -44,10 +44,17 @@ GRAPH_FILES = [
     _find("ontology.ttl"),
 ]
 
-VOID_FILE = HERE / "void.ttl"
-VOCAB_FILE = HERE / "vocab.json"
-CACHE_FILE = HERE / "cache" / "llm_cache.json"
+# Everything the scripts write (void.ttl, vocab.json, model cache, results) goes in STATE_DIR.
+# Locally that is this folder; in Docker it is a volume (STATE_DIR=/state).
+STATE_DIR = pathlib.Path(os.getenv("STATE_DIR", str(HERE)))
+# If set, queries go to this SPARQL endpoint (Fuseki) and no graph files are loaded here.
+# Example: http://localhost:3030/semiconductor/sparql
+SPARQL_ENDPOINT = os.getenv("SPARQL_ENDPOINT", "")
 
-MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
+VOID_FILE = STATE_DIR / "void.ttl"
+VOCAB_FILE = STATE_DIR / "vocab.json"
+CACHE_FILE = STATE_DIR / "cache" / "llm_cache.json"
+
+MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 LLM_MODE = os.getenv("LLM_MODE", "live")          # live | replay
 LLM_DELAY = float(os.getenv("LLM_DELAY", "4"))    # seconds between real calls

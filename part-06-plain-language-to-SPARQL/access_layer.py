@@ -14,7 +14,9 @@ import pathlib
 import re
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
+from decimal import Decimal
 from urllib.parse import unquote
 
 from rdflib import Graph, Literal, Namespace
@@ -39,15 +41,88 @@ PREFIXES = {
 
 
 # ---------------------------------------------------------------- the graph
+# Two ways to reach the graph: local files (rdflib) or a SPARQL endpoint such as Fuseki.
+INT_TYPES = {"integer", "int", "long", "short", "nonNegativeInteger", "positiveInteger",
+             "negativeInteger", "nonPositiveInteger", "unsignedInt", "unsignedLong"}
+
+
+def _value(b):
+    """One cell of a SPARQL JSON result -> a plain Python value."""
+    if b is None:
+        return None
+    kind, v = b["type"], b["value"]
+    if kind == "uri":
+        return v
+    if kind == "bnode":
+        return "_:" + v
+    dt = b.get("datatype", "")
+    if dt.startswith(XSD_NS):
+        short = dt[len(XSD_NS):]
+        try:
+            if short in INT_TYPES:
+                return int(v)
+            if short == "decimal":
+                return Decimal(v)
+            if short in ("double", "float"):
+                return float(v)
+            if short == "boolean":
+                return v == "true"
+        except ValueError:
+            pass
+    return v
+
+
+class RemoteResult:
+    def __init__(self, type_, vars_=None, rows=None, ask=None):
+        self.type, self.vars, self.askAnswer = type_, vars_ or [], ask
+        self._rows = rows or []
+
+    def __iter__(self):
+        return iter(self._rows)
+
+
+class RemoteGraph:
+    """A SPARQL endpoint (Fuseki) that answers .query() like an rdflib Graph does."""
+
+    def __init__(self, endpoint):
+        self.endpoint = endpoint
+
+    def query(self, q):
+        body = urllib.parse.urlencode({"query": q}).encode("utf-8")
+        headers = {"Content-Type": "application/x-www-form-urlencoded",
+                   "Accept": "application/sparql-results+json"}
+        try:
+            with urllib.request.urlopen(urllib.request.Request(self.endpoint, body, headers), timeout=120) as r:
+                data = json.load(r)
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"endpoint error {e.code}: {e.read()[:300].decode('utf-8', 'replace')}")
+        except urllib.error.URLError as e:
+            raise RuntimeError(f"cannot reach {self.endpoint}: {e.reason}")
+        if "boolean" in data:
+            return RemoteResult("ASK", ask=data["boolean"])
+        names = data["head"]["vars"]
+        rows = [tuple(_value(b.get(v)) for v in names) for b in data["results"]["bindings"]]
+        return RemoteResult("SELECT", names, rows)
+
+
 def load_graph():
+    if config.SPARQL_ENDPOINT:
+        return RemoteGraph(config.SPARQL_ENDPOINT)
     g = Graph()
     for f in config.GRAPH_FILES:
         if not pathlib.Path(f).exists():
             raise FileNotFoundError(
                 f"Missing {f}. The graph files should be in ../part-03-RDF "
-                "(or set KG_DIR to their folder).")
+                "(or set KG_DIR to their folder, or SPARQL_ENDPOINT to use Fuseki).")
         g.parse(f)
     return g
+
+
+def count_triples(g):
+    if isinstance(g, RemoteGraph):
+        for (n,) in g.query("SELECT (COUNT(*) AS ?n) WHERE { ?s ?p ?o }"):
+            return int(n)
+    return len(g)
 
 
 # ---------------------------------------------------------------- the schema
@@ -127,7 +202,7 @@ def _tokens(s):
 
 
 def load_examples():
-    """Read the worked examples from examples.ttl (SHACL SPARQLSelectExecutable)."""
+    """Read the worked examples from examples.ttl (SHACL SPARQLSelectExecutable, like the lab)."""
     eg = Graph()
     eg.parse(str(EXAMPLES_FILE), format="turtle")
     items = []
@@ -279,6 +354,14 @@ def check_query(query, schema):
 
 
 # ---------------------------------------------------------------- running
+def _cell(x):
+    if isinstance(x, Literal):
+        return x.toPython()
+    if x is None or isinstance(x, (int, float, bool, Decimal)):
+        return x
+    return str(x)
+
+
 def run_query(g, query):
     res = g.query(ensure_prefixes(query))
     if res.type == "ASK":
@@ -286,7 +369,7 @@ def run_query(g, query):
     names = [str(v) for v in res.vars]
     rows = []
     for r in res:
-        rows.append([x.toPython() if isinstance(x, Literal) else (None if x is None else str(x)) for x in r])
+        rows.append([_cell(x) for x in r])
         if len(rows) >= 1000:
             break
     return names, rows

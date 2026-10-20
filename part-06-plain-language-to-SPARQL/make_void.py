@@ -9,18 +9,15 @@ import json
 from rdflib import BNode, Graph, Literal, Namespace, RDF, URIRef
 
 import config
-from access_layer import load_graph, VOID, VEXT
+from access_layer import load_graph, count_triples, VOID, VEXT
 
 UL = config.UL
 g = load_graph()
- 
-""" how many instance per class"""
+
 CLASSES = """
 SELECT ?class (COUNT(DISTINCT ?s) AS ?n)
 WHERE { ?s a ?class . FILTER(STRSTARTS(STR(?class), "__UL__")) }
 GROUP BY ?class"""
-
-
 
 PROPS = """
 SELECT ?class ?p ?oclass ?dt ?iri (COUNT(*) AS ?n)
@@ -39,7 +36,7 @@ vg.bind("void-ext", VEXT)
 vg.bind("ul", Namespace(UL))
 ds = URIRef(config.DATASET)
 vg.add((ds, RDF.type, VOID.Dataset))
-vg.add((ds, VOID.triples, Literal(len(g))))
+vg.add((ds, VOID.triples, Literal(count_triples(g))))
 
 parts = {}
 for klass, n in g.query(CLASSES.replace("__UL__", UL)):
@@ -74,6 +71,7 @@ for (klass, p), d in sorted(props.items()):
         vg.add((pp, VEXT.datatypePartition, b))
         vg.add((b, VEXT.datatype, URIRef(t)))
 
+config.STATE_DIR.mkdir(parents=True, exist_ok=True)
 vg.serialize(str(config.VOID_FILE), format="turtle")
 print(f"wrote {config.VOID_FILE.name}: {len(vg)} triples")
 

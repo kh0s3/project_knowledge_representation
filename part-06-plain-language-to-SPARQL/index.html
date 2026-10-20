@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask the semiconductor trade graph</title>
+<style>
+  :root { --bg:#fff; --fg:#1f2328; --muted:#656d76; --line:#d0d7de; --accent:#0969da; --card:#f6f8fa; --bad:#cf222e; --ok:#1a7f37; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0d1117; --fg:#e6edf3; --muted:#8b949e; --line:#30363d; --accent:#58a6ff; --card:#161b22; --bad:#ff7b72; --ok:#3fb950; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; }
+  form { display:flex; gap:8px; }
+  input[type=text] { flex:1; padding:10px 12px; font-size:1rem; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--fg); }
+  button { padding:10px 18px; font-size:1rem; border:0; border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:wait; }
+  .chips { margin:12px 0 0; display:flex; flex-wrap:wrap; gap:8px; }
+  .chip { padding:4px 10px; border:1px solid var(--line); border-radius:999px; background:var(--card); color:var(--fg); font-size:.85rem; cursor:pointer; }
+  section { margin-top:24px; }
+  h2 { font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 6px; }
+  pre { margin:0; padding:12px; background:var(--card); border:1px solid var(--line); border-radius:8px; overflow-x:auto; font-size:.85rem; }
+  .msg { padding:12px; border-radius:8px; border:1px solid var(--line); background:var(--card); }
+  .msg.bad { border-color:var(--bad); }
+  .meta { color:var(--muted); font-size:.85rem; margin-top:6px; }
+  .tablewrap { overflow-x:auto; border:1px solid var(--line); border-radius:8px; }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; }
+  th, td { padding:6px 10px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap; }
+  th { background:var(--card); }
+  td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom:0; }
+  .copy { margin-top:6px; background:transparent; color:var(--accent); padding:0; font-size:.85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ask the semiconductor trade graph</h1>
+  <p class="sub">Type a question in plain English. No SPARQL needed.</p>
+
+  <form id="form">
+    <input id="q" type="text" placeholder="Which country exports the most memory chips?" autocomplete="off" autofocus>
+    <button id="go" type="submit">Ask</button>
+  </form>
+  <div class="chips" id="chips"></div>
+
+  <section id="status" hidden></section>
+  <section id="answer" hidden><h2>Answer</h2><div id="table"></div><div class="meta" id="count"></div></section>
+  <section id="query" hidden><h2>SPARQL the model wrote</h2><pre id="sparql"></pre><button class="copy" id="copy" type="button">Copy query</button></section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const form = $("form"), input = $("q"), go = $("go");
+
+fetch("/api/examples").then(r => r.json()).then(list => {
+  list.slice(0, 6).forEach(text => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = text;
+    b.onclick = () => { input.value = text; form.requestSubmit(); };
+    $("chips").appendChild(b);
+  });
+}).catch(() => {});
+
+function show(id, on) { $(id).hidden = !on; }
+
+function message(text, bad) {
+  const s = $("status");
+  s.innerHTML = "";
+  const d = document.createElement("div");
+  d.className = "msg" + (bad ? " bad" : "");
+  d.textContent = text;
+  s.appendChild(d);
+  show("status", true);
+}
+
+function renderTable(vars, rows) {
+  const wrap = document.createElement("div");
+  wrap.className = "tablewrap";
+  const t = document.createElement("table");
+  const head = t.createTHead().insertRow();
+  vars.forEach(v => { const th = document.createElement("th"); th.textContent = v; head.appendChild(th); });
+  const body = t.createTBody();
+  rows.forEach(r => {
+    const tr = body.insertRow();
+    r.forEach(c => {
+      const td = tr.insertCell();
+      const isNum = typeof c === "number" || (typeof c === "string" && /^-?\d+(\.\d+)?$/.test(c));
+      td.textContent = c === null ? "" : (isNum ? Number(c).toLocaleString(undefined, {maximumFractionDigits: 2}) : String(c));
+      if (isNum) td.className = "num";
+    });
+  });
+  wrap.appendChild(t);
+  return wrap;
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const question = input.value.trim();
+  if (!question) return;
+  go.disabled = true;
+  show("answer", false); show("query", false);
+  message("Thinking...", false);
+  try {
+    const res = await fetch("/api/ask?question=" + encodeURIComponent(question));
+    const d = await res.json();
+    if (d.error && !d.status) { message(d.error, true); return; }
+    if (d.query) { $("sparql").textContent = d.query; show("query", true); }
+    if (d.status === "ok") {
+      show("status", false);
+      $("table").replaceChildren(renderTable(d.vars, d.rows));
+      $("count").textContent = d.rows.length + " row" + (d.rows.length === 1 ? "" : "s") +
+        (d.repairs ? " · the query was repaired " + d.repairs + "x" : "");
+      show("answer", true);
+    } else if (d.status === "refused") {
+      message("The graph can't answer this. " + d.reason.replace(/^REFUSE:\s*/i, ""), false);
+    } else {
+      message("Could not build a working query. " + (d.problems || []).join("; "), true);
+    }
+  } catch (err) {
+    message("Server error: " + err, true);
+  } finally {
+    go.disabled = false;
+  }
+});
+
+$("copy").onclick = () => navigator.clipboard.writeText($("sparql").textContent);
+</script>
+</body>
+</html>

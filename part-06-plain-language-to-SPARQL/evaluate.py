@@ -88,7 +88,7 @@ for name, opts in SETTINGS.items():
                    f"wrong refusals {refused_bad}   failed {failed}")
 
 print("\n" + "\n".join(summary))
-out = config.HERE / "results"
-out.mkdir(exist_ok=True)
+out = config.STATE_DIR / "results"
+out.mkdir(parents=True, exist_ok=True)
 (out / "evaluate.txt").write_text("\n".join(summary) + "\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 print(f"\nsaved results/{'evaluate.txt'}")

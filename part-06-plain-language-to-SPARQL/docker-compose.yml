@@ -1,0 +1,31 @@
+# Two containers: Fuseki holds the graph, the access layer talks to it.
+# Run with: docker compose up --build      then open http://127.0.0.1:8000/
+services:
+  fuseki:
+    build: ./fuseki
+    volumes:
+      - ../part-03-RDF:/data:ro            # semiconductor-knowledge-graph.nt, tier-knowledge.ttl, ontology.ttl
+    ports:
+      - "127.0.0.1:3030:3030"              # Fuseki page and SPARQL, only from this computer (read only dataset)
+    healthcheck:                           # healthy = the dataset is loaded and answers a query
+      test: ["CMD-SHELL", "curl -fsS -G --data-urlencode 'query=ASK {}' http://localhost:3030/semiconductor/sparql > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+  access-layer:
+    build: .
+    depends_on:
+      fuseki:
+        condition: service_healthy
+    environment:
+      SPARQL_ENDPOINT: http://fuseki:3030/semiconductor/sparql
+    env_file: .env                         # GOOGLE_API_KEY (never inside the image)
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - state:/state                       # void.ttl, vocab.json, model cache
+
+volumes:
+  state:
